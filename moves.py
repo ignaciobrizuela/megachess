@@ -52,7 +52,7 @@ def check_constrains(obj, n, direction):
     except Exception as e:
         print("Object error: is not a chess piece.")
 
-    print(tag,row,col,n,direction)
+    # print(tag,row,col,n,direction)
     # <<< PAWN >>>
     if tag == 'p' or tag =='P':
         # Double square move
@@ -72,3 +72,6 @@ def check_constrains(obj, n, direction):
         #     return True
         else:
             return False
+
+    if tag == 'q' or tag =='Q':
+        pass

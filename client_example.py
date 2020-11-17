@@ -36,18 +36,18 @@ async def start(auth_token):
                     pass
                 if data['event'] == 'ask_challenge':
                     # This function accepts any challenge
-                    await send(
-                        websocket,
-                        'accept_challenge',
-                        {
-                            'board_id': data['data']['board_id'],
-                        },
-                    )
+                    if data['username'] == 'brz':
+                        await send(
+                            websocket,
+                            'accept_challenge',
+                            {
+                                'board_id': data['data']['board_id'],
+                            },
+                        )
                     # To create a new match
                     player.create_match(data['data']['board_id'])
                 if data['event'] == 'your_turn':
                     board = data['data']['board']
-                    
                     color = data['data']['actual_turn']
                     await send(
                         websocket,
@@ -71,5 +71,4 @@ if __name__ == '__main__':
         auth_token = sys.argv[1]
         asyncio.get_event_loop().run_until_complete(start(auth_token))
     else:
-        auth_token = "a6ea9d2b-937e-432b-9a4c-504941583fd3"
         asyncio.get_event_loop().run_until_complete(start(auth_token))
