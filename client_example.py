@@ -38,29 +38,30 @@ async def start(auth_token):
                     pass
                 if data['event'] == 'ask_challenge':
                     # This function accepts any challenge
-                    if data['username'] == 'brz':
-                        await send(
-                            websocket,
-                            'accept_challenge',
-                            {
-                                'board_id': data['data']['board_id'],
-                            },
-                        )
+
+                    await send(
+                        websocket,
+                        'accept_challenge',
+                        {
+                            'board_id': data['data']['board_id'],
+                        },
+                    )
                     # To create a new match
                     player.create_match(data['data']['board_id'])
                 if data['event'] == 'your_turn':
                     board = data['data']['board']
                     color = data['data']['actual_turn']
+                    from_row, from_col, to_row, to_col = player.play(board, color)
                     await send(
                         websocket,
                         'move',
                         {
                             'board_id':     data['data']['board_id'],
                             'turn_token':   data['data']['turn_token'],
-                            'from_row':     randint(0, 15),
-                            'from_col':     randint(0, 15),
-                            'to_row':       randint(0, 15),
-                            'to_col':       randint(0, 15),
+                            'from_row':     from_row,
+                            'from_col':     from_col,
+                            'to_row':       to_row,
+                            'to_col':       to_col,
                         },
                     )
 

@@ -1,21 +1,15 @@
+# Made by brz
+import asyncio
 import board
 import moves
 import match
 import pieces
-
-
-def run_once(f):
-    def wrapper(*args, **kwargs):
-        if not wrapper.has_run:
-            wrapper.has_run = True
-            return f(*args, **kwargs)
-    wrapper.has_run = False
-    return wrapper
-
+import numpy as np 
 
 
 def create_match(board_id, turn_token, actual_turn):
     matches.append(match.Match(board_id, turn_token, actual_turn))
+
 
 def get_match(board_id):
     for index, m in enumerate(matches):
@@ -25,83 +19,67 @@ def get_match(board_id):
 
 def gambit_queen(board, color):
     # Check if there is any queen in the board
-    queens = actual_board.black_queens if color=='black' else actual_board.white_queens
+    queens = board.black_queens if color=='black' else board.white_queens
+    i = len(queens) -1
+
     # any advanced queen?
     for queen in reversed(queens):
-        print(queen.row, queen.col)
 
-        # If there is a queen, get vertical column
-        vertical_col = actual_board.board_array[:,queen.col]
-        # **** Checking for any rival in VERTICAL column *****
-        # Any rival up my piece
-        rival_row = rival_up_row(queen, vertical_col)
+        # print(moves.rival_up(board, queen))
+        # print(moves.rival_down(board, queen))
+        # print(moves.rival_right(board, queen))
+        # print(moves.rival_left(board, queen))
+        queens[i].rivals.append(moves.rival_up(board, queen))
+        queens[i].rivals.append(moves.rival_down(board, queen))
+        queens[i].rivals.append(moves.rival_right(board, queen))
+        queens[i].rivals.append(moves.rival_left(board, queen))
 
-        if rival_row == None:
-            # Any rival down my piece
-            rival_row = rival_down_row(queen, vertical_col)
-            if rival_row == None:
-                ('No rival in the way')
-            else:
-                print("yes", queen.row, queen.col)
-                print(vertical_col)
-                print("Can capture piece in row -> {}".format(rival_row))
-                return rival_row, queen.col
-                break
-        else:
-            print("yes", queen.row, queen.col)
-            print(vertical_col)
-            print("Can capture piece in row -> {}".format(rival_row))
-            return rival_row, queen.col
-            break
+        i -= 1
 
-    # another queen?
-
-def rival_up_row(piece, my_piece_entire_col):
-
-    for i in reversed(range(0, piece.row)):
-        if my_piece_entire_col[i].isupper():
-            return i
-        elif my_piece_entire_col[i].islower():
-            return None
+    for queen in reversed(queens):
+        for rival in queen.rivals:
+            if rival != None:
+                return queen.row, queen.col, rival[0], rival[1]
+    return None
 
 
-def rival_down_row(piece, my_piece_entire_col):
+def crown_a_pawn(board, color):
+    pawns = board.black_pawns if color=='black' else board.white_pawns
+    i = len(pawns) - 1 if color=='black' else 0
 
-    for i in range(piece.row+1, 15):
-        if my_piece_entire_col[i].isupper():
-            return i
-        elif my_piece_entire_col[i].islower():
-            return None
+    n = pawns[i].valid_move_jump()
 
+    to_row = pawns[i].row + n
+    to_col = pawns[i].col
 
+    return pawns[i].row, pawns[i].col, to_row, to_col
 
-def next_piece():
-    n = 0
-    while n < 16:
-        yield n
-        n += 1
 
 # To find if there is a match with this board_id
 # result = any(m.board_id() == board_id for m in matches)
 
 matches = []
 
-board_id = "2d348323-2e79-4961-ac36-1b000e8c42a5"
-turn_token = "2d348323-2e79-4961-ac36-1b000e8c42a5"
-actual_turn = "black"
-board_match = ('rrhhbbqqkkbbhhrrrrhhbbqqkkbbhhrrpppppppppppppppppppppppppppppppp' 
-        '                                                                ' 
-        '                                                                ' 
-        'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRHHBBQQKKBBHHRRRRHHBBQQKKBBHHRR')
+# board_id = "2d348323-2e79-4961-ac36-1b000e8c42a5"
+# turn_token = "2d348323-2e79-4961-ac36-1b000e8c42a5"
+# actual_turn = "white"
+# board_match = ('rrhhbbqqkkBbhhrrrrhhbbqqkkbbhhrrpppppppppppppppppppppppppppppppp' 
+#                 '                                                                ' 
+#                 '                                                                ' 
+#                 'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRHHBBQQKKBBHHRRRRHHBBQQKKBBHHRR')
 
-# Creates a new match
-matches.append(match.Match(board_id, turn_token, actual_turn))
-# Split the board into rows of 16 pieces length
-actual_board = board.Board(board_match)
-# print(actual_board.board_array[:,1])
-# Get black pawns 
-gambit_queen(actual_board, actual_turn)
-# Find a pawn to crown
-# This selector return columns from 0 to 15
-selector = next_piece()
-# find_pawn(pawns, next(selector), actual_turn)
+def play(actual_board, color):
+    # Creates a new match
+    # matches.append(match.Match(board_id, turn_token, color))
+    # Split the board into rows of 16 pieces length
+    actual_board = board.Board(actual_board)
+    # print(actual_board.board_array)
+    # Get black pawns 
+    try:
+        from_row, from_col, to_row, to_col = gambit_queen(actual_board, color)
+        return from_row, from_col, to_row, to_col
+
+    except Exception as e:
+        from_row, from_col, to_row, to_col = crown_a_pawn(actual_board, color)
+        return from_row, from_col, to_row, to_col
+    

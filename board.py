@@ -1,5 +1,4 @@
 import pieces
-import moves
 import numpy as np
 
 class Board():
@@ -34,7 +33,7 @@ class Board():
             for col, piece in enumerate(pieces_row):
                 # Creates a list with black pieces
                 if piece == 'p':
-                    self.black_pawns.append(pieces.Piece(piece, 'black', row, col))
+                    self.black_pawns.append(pieces.Pawn(piece, 'black', row, col))
                 elif piece == 'h':
                     self.black_horses.append(pieces.Piece(piece, 'black', row, col))
                 elif piece == 'b':
@@ -48,7 +47,7 @@ class Board():
 
                 # Creates a list with white pieces
                 elif piece == 'P':
-                    self.white_pawns.append(pieces.Piece(piece, 'white', row, col))
+                    self.white_pawns.append(pieces.Pawn(piece, 'white', row, col))
                 elif piece == 'H':
                     self.white_horses.append(pieces.Piece(piece, 'white', row, col))
                 elif piece == 'B':
