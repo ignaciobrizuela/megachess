@@ -33,6 +33,10 @@ def gambit_queen(board, color):
         queens[i].rivals.append(moves.rival_down(board, queen))
         queens[i].rivals.append(moves.rival_right(board, queen))
         queens[i].rivals.append(moves.rival_left(board, queen))
+        queens[i].rivals.append(moves.rival_up_right(board, queen))
+        queens[i].rivals.append(moves.rival_up_left(board, queen))
+        queens[i].rivals.append(moves.rival_down_right(board, queen))
+        queens[i].rivals.append(moves.rival_down_left(board, queen))
 
         i -= 1
 
@@ -54,7 +58,16 @@ def crown_a_pawn(board, color):
 
     return pawns[i].row, pawns[i].col, to_row, to_col
 
+def next_piece():
+    n = 0
+    rows = [4, 5, 6, 7, 8, 9, 10, 11,
+            12, 13, 14, 0, 1, 2, 3]
 
+    while n < 16:
+        yield rows[n]
+        n += 1
+
+# selector = next_piece()
 # To find if there is a match with this board_id
 # result = any(m.board_id() == board_id for m in matches)
 
@@ -62,18 +75,21 @@ matches = []
 
 # board_id = "2d348323-2e79-4961-ac36-1b000e8c42a5"
 # turn_token = "2d348323-2e79-4961-ac36-1b000e8c42a5"
-# actual_turn = "white"
-# board_match = ('rrhhbbqqkkBbhhrrrrhhbbqqkkbbhhrrpppppppppppppppppppppppppppppppp' 
-#                 '                                                                ' 
-#                 '                                                                ' 
-#                 'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRHHBBQQKKBBHHRRRRHHBBQQKKBBHHRR')
+actual_turn = "white"
+board_match = ('rrhhbbqqkkBbhhrrrrhhbbqqkkbbhhrrpppppppppppppppppppppppppppppppp' 
+                '                                                                ' 
+                '                                                                ' 
+                'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRHHBBQQKKBBHHRRRRHHBBQQKKBBHHRR')
+
+# actual_board = board.Board(board_match)
+# crown_a_pawn(actual_board, actual_turn)
 
 def play(actual_board, color):
     # Creates a new match
     # matches.append(match.Match(board_id, turn_token, color))
     # Split the board into rows of 16 pieces length
     actual_board = board.Board(actual_board)
-    # print(actual_board.board_array)
+    print(actual_board.board_array)
     # Get black pawns 
     try:
         from_row, from_col, to_row, to_col = gambit_queen(actual_board, color)
