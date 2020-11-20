@@ -7,95 +7,211 @@ import pieces
 import numpy as np 
 
 
-def create_match(board_id, turn_token, actual_turn):
-    matches.append(match.Match(board_id, turn_token, actual_turn))
+def gambit_king(board, color):
+    kings   = board.black_kings   if color == 'black' else board.white_kings
+    kings = kings[::-1]           if color=='black'   else kings
+    i = 0
+
+    for king in kings:
+        if color == 'black':
+            kings[i].rivals.append(moves.rival_down(board, king))
+            kings[i].rivals.append(moves.rival_down_right(board, king))
+            kings[i].rivals.append(moves.rival_down_left(board, king))
+            kings[i].rivals.append(moves.rival_right(board, king))
+            kings[i].rivals.append(moves.rival_left(board, king))
+            kings[i].rivals.append(moves.rival_up(board, king))
+            kings[i].rivals.append(moves.rival_up_right(board, king))
+            kings[i].rivals.append(moves.rival_up_left(board, king))
+
+        elif color == 'white':
+            kings[i].rivals.append(moves.rival_up(board, king))
+            kings[i].rivals.append(moves.rival_up_right(board, king))
+            kings[i].rivals.append(moves.rival_up_left(board, king))
+            kings[i].rivals.append(moves.rival_left(board, king))
+            kings[i].rivals.append(moves.rival_right(board, king))
+            kings[i].rivals.append(moves.rival_down(board, king))
+            kings[i].rivals.append(moves.rival_down_left(board, king))
+            kings[i].rivals.append(moves.rival_down_right(board, king))
+
+        i += 1
+
+    return capture(kings)
+
+def gambit_rook(board, color):
+    rooks   = board.black_rooks   if color == 'black' else board.white_rooks
+    rooks = rooks[::-1]           if color=='black'   else rooks
+    i = 0
+
+    
+    for rook in rooks:
+        if color == 'black':
+            rooks[i].rivals.append(moves.rival_down(board, rook))
+            rooks[i].rivals.append(moves.rival_up(board, rook))
+            rooks[i].rivals.append(moves.rival_left(board, rook))
+            rooks[i].rivals.append(moves.rival_right(board, rook))
+
+        elif color == 'white':
+            rooks[i].rivals.append(moves.rival_up(board, rook))
+            rooks[i].rivals.append(moves.rival_down(board, rook))
+            rooks[i].rivals.append(moves.rival_right(board, rook))
+            rooks[i].rivals.append(moves.rival_left(board, rook))
+
+        i += 1
+
+    return capture(rooks)
+
+def gambit_bishop(board, color):
+    bishops   = board.black_bishops if color == 'black' else board.white_bishops
+    bishops = bishops[::-1]         if color=='black'   else bishops
+    i = 0
 
 
-def get_match(board_id):
-    for index, m in enumerate(matches):
-        if m.get_board_id() == board_id:
-            return index, m
+    for bishop in bishops:
+        if color == 'black':
+            bishops[i].rivals.append(moves.rival_down_left(board, bishop))
+            bishops[i].rivals.append(moves.rival_down_right(board, bishop))
+            bishops[i].rivals.append(moves.rival_up_left(board, bishop))
+            bishops[i].rivals.append(moves.rival_up_right(board, bishop))
+        
+        elif color == 'white':
+            bishops[i].rivals.append(moves.rival_up_right(board, bishop))
+            bishops[i].rivals.append(moves.rival_up_left(board, bishop))
+            bishops[i].rivals.append(moves.rival_down_right(board, bishop))
+            bishops[i].rivals.append(moves.rival_down_left(board, bishop))
+
+        i += 1
+
+    return capture(bishops)
+
+def gambit_pawn(board, color):
+    pawns   = board.black_pawns   if color == 'black' else board.white_pawns
+    pawns   = pawns[::-1]         if color=='black'   else pawns
+    i = 0
+
+    
+    for pawn in pawns:
+        if color == 'black':
+            pawns[i].rivals.append(moves.rival_down_left(board, pawn))
+            pawns[i].rivals.append(moves.rival_down_right(board, pawn))
+
+        elif color == 'white':
+            pawns[i].rivals.append(moves.rival_up_right(board, pawn))
+            pawns[i].rivals.append(moves.rival_up_left(board, pawn))
+
+        i += 1
+
+    return capture(pawns)
+
 
 
 def gambit_queen(board, color):
     # Check if there is any queen in the board
     queens = board.black_queens if color=='black' else board.white_queens
-    i = len(queens) -1
+    queens = queens[::-1]       if color=='black' else queens
+    i = 0
 
     # any advanced queen?
-    for queen in reversed(queens):
+    
+    for queen in queens:
+        if color == 'black':
+            queens[i].rivals.append(moves.rival_down(board, queen))
+            queens[i].rivals.append(moves.rival_down_right(board, queen))
+            queens[i].rivals.append(moves.rival_down_left(board, queen))
+            queens[i].rivals.append(moves.rival_right(board, queen))
+            queens[i].rivals.append(moves.rival_left(board, queen))
+            queens[i].rivals.append(moves.rival_up(board, queen))
+            queens[i].rivals.append(moves.rival_up_right(board, queen))
+            queens[i].rivals.append(moves.rival_up_left(board, queen))
 
-        # print(moves.rival_up(board, queen))
-        # print(moves.rival_down(board, queen))
-        # print(moves.rival_right(board, queen))
-        # print(moves.rival_left(board, queen))
-        queens[i].rivals.append(moves.rival_up(board, queen))
-        queens[i].rivals.append(moves.rival_down(board, queen))
-        queens[i].rivals.append(moves.rival_right(board, queen))
-        queens[i].rivals.append(moves.rival_left(board, queen))
-        queens[i].rivals.append(moves.rival_up_right(board, queen))
-        queens[i].rivals.append(moves.rival_up_left(board, queen))
-        queens[i].rivals.append(moves.rival_down_right(board, queen))
-        queens[i].rivals.append(moves.rival_down_left(board, queen))
+        elif color == 'white':
+            queens[i].rivals.append(moves.rival_up(board, queen))
+            queens[i].rivals.append(moves.rival_up_right(board, queen))
+            queens[i].rivals.append(moves.rival_up_left(board, queen))
+            queens[i].rivals.append(moves.rival_left(board, queen))
+            queens[i].rivals.append(moves.rival_right(board, queen))
+            queens[i].rivals.append(moves.rival_down(board, queen))
+            queens[i].rivals.append(moves.rival_down_left(board, queen))
+            queens[i].rivals.append(moves.rival_down_right(board, queen))
+        
+        i += 1
+        
 
-        i -= 1
+    return capture(queens)
 
-    for queen in reversed(queens):
-        for rival in queen.rivals:
-            if rival != None:
-                return queen.row, queen.col, rival[0], rival[1]
-    return None
-
-
+    
 def crown_a_pawn(board, color):
     pawns = board.black_pawns if color=='black' else board.white_pawns
     i = len(pawns) - 1 if color=='black' else 0
 
-    n = pawns[i].valid_move_jump()
+    if color == 'black':
+        n = pawns[i].valid_move_jump('down')
+    elif color == 'white':
+        n = pawns[i].valid_move_jump('up')
 
     to_row = pawns[i].row + n
     to_col = pawns[i].col
 
     return pawns[i].row, pawns[i].col, to_row, to_col
 
-def next_piece():
-    n = 0
-    rows = [4, 5, 6, 7, 8, 9, 10, 11,
-            12, 13, 14, 0, 1, 2, 3]
 
-    while n < 16:
-        yield rows[n]
-        n += 1
+def capture(pieces):
+    for piece in pieces:
+        for rival in piece.rivals:
+            # print(piece.tag, piece.row, piece.col)
+            # print('rival', rival[0], rival[1])
+            # print(piece.valid_move_capture(rival[0], rival[1]))
+            if rival != None and piece.valid_move_capture(rival[0], rival[1]):
+                return piece.row, piece.col, rival[0], rival[1]
+        
+    return None
 
-# selector = next_piece()
-# To find if there is a match with this board_id
-# result = any(m.board_id() == board_id for m in matches)
 
-matches = []
-
-# board_id = "2d348323-2e79-4961-ac36-1b000e8c42a5"
-# turn_token = "2d348323-2e79-4961-ac36-1b000e8c42a5"
-actual_turn = "white"
-board_match = ('rrhhbbqqkkBbhhrrrrhhbbqqkkbbhhrrpppppppppppppppppppppppppppppppp' 
-                '                                                                ' 
-                '                                                                ' 
-                'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRHHBBQQKKBBHHRRRRHHBBQQKKBBHHRR')
-
-# actual_board = board.Board(board_match)
-# crown_a_pawn(actual_board, actual_turn)
+writer = open('game.txt', 'w')
 
 def play(actual_board, color):
-    # Creates a new match
-    # matches.append(match.Match(board_id, turn_token, color))
     # Split the board into rows of 16 pieces length
     actual_board = board.Board(actual_board)
-    print(actual_board.board_array)
-    # Get black pawns 
-    try:
-        from_row, from_col, to_row, to_col = gambit_queen(actual_board, color)
-        return from_row, from_col, to_row, to_col
+    writer.write(str(actual_board.board_array))
+    writer.write('\n')
 
+    print(actual_board.board_array)
+    # Check if there is any queen abble to capture pieces
+    try:
+        from_row, from_col, to_row, to_col = gambit_king(actual_board, color)
     except Exception as e:
-        from_row, from_col, to_row, to_col = crown_a_pawn(actual_board, color)
-        return from_row, from_col, to_row, to_col
+        try:
+            from_row, from_col, to_row, to_col = gambit_rook(actual_board, color)
+        except Exception as e:
+            try:
+                from_row, from_col, to_row, to_col = gambit_bishop(actual_board, color)
+            except Exception as e:
+                try:
+                    from_row, from_col, to_row, to_col = gambit_pawn(actual_board, color)
+                except Exception as e:
+                    try:
+                        from_row, from_col, to_row, to_col = gambit_queen(actual_board, color)
+                    except Exception as e:
+                        try:
+                            from_row, from_col, to_row, to_col = crown_a_pawn(actual_board, color)
+                        except Exception as e:
+                            print('It cannot move')
+
+    print(from_row, from_col, to_row, to_col)
+    return from_row, from_col, to_row, to_col
+    # try:
+    #     try:
+    #         try:
+    #             from_row, from_col, to_row, to_col = gambit_king(actual_board, color)
+    #             return from_row, from_col, to_row, to_col
+    #         except Exception as e:
+    #             pass
+    #             from_row, from_col, to_row, to_col = gambit_rook(actual_board, color)
+    #             return from_row, from_col, to_row, to_col
+    #     except Exception as e:
+    #         from_row, from_col, to_row, to_col = gambit_queen(actual_board, color)
+    #         return from_row, from_col, to_row, to_col
+    # If there is not, try to crown a pawn
+    # except Exception as e:
+    #     from_row, from_col, to_row, to_col = crown_a_pawn(actual_board, color)
+    #     return from_row, from_col, to_row, to_col
     
