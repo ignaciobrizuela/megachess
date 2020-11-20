@@ -1,6 +1,5 @@
 # Made by brz
 import asyncio
-import board
 import pieces
 
 
