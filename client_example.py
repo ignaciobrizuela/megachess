@@ -10,6 +10,7 @@ from decouple import config
 
 auth_token = config('AUTH_TOKEN')
 
+
 async def send(websocket, action, data):
     message = json.dumps(
         {
