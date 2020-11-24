@@ -4,12 +4,16 @@ import pieces
 
 
 def rival_up(board, piece):
+    # Get the whole piece column
     column = board.board_array[:,piece.col]
 
+    # Iterate each item from the piece row until zero
     for i in reversed(range(0, piece.row)):
+        # If my piece is black, look for a white piece
         if piece.color == 'black':
             if column[i].isupper():
                 return i, piece.col
+            # If there is one black piece on the way, there is no rival
             elif column[i].islower():
                 return None
         elif piece.color == 'white':
@@ -22,12 +26,16 @@ def rival_up(board, piece):
 
 
 def rival_down(board, piece):
+    # Get the whole piece column
     column = board.board_array[:,piece.col]
 
+    # Iterate each item from the piece row until 16
     for row in range(piece.row+1, 16):
+        # If my piece is black, look for a white piece
         if piece.color == 'black':
             if column[row].isupper():
                 return row, piece.col
+            # If there is one black piece on the way, there is no rival
             elif column[row].islower():
                 return None
         elif piece.color == 'white':
@@ -73,10 +81,13 @@ def rival_left(board, piece):
     return None
 
 def rival_up_right(board, piece):
+    # Get the maximun diagonal number of squares that it can move
     n = min(piece.row, 15-piece.col)
 
+    # i is the squares distance from my piece position
     for i in range(1, n+1):
         if piece.color == 'black':
+            # Look for pieces in diagonal i distance from my piece position
             if board.board_array[piece.row-i][piece.col+i].isupper():
                 return piece.row-i, piece.col+i
             elif board.board_array[piece.row-i][piece.col+i].islower():

@@ -1,9 +1,8 @@
-import board 
-import numpy as np
-import moves
-import pieces
+from scripts import board
+from scripts import pieces
+from scripts import moves
 import unittest
-
+import numpy as np
 
 class TestMoves(unittest.TestCase):
 

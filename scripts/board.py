@@ -3,10 +3,9 @@ import numpy as np
 
 class Board():
 
-    def __init__(self, board):
-        # Board splitted in rows and columns, easy to find pieces
-        self.board_array = np.array(list(board), dtype=str)
-        self.board_array = self.board_array.reshape(16,16)
+    def __init__(self, board_str):
+        # Board array
+        self.board_array = convert_board_matrix(board_str)
         # Black pieces
         self.black_pawns      = []
         self.black_horses     = []
@@ -25,9 +24,9 @@ class Board():
         self.empty_squares    = []
         
         # Get pieces
-        self.get_pieces_from_board(board)
+        self.get_pieces_from_board()
         
-    def get_pieces_from_board(self,board):
+    def get_pieces_from_board(self):
 
         for row, pieces_row in enumerate(self.board_array):
             for col, piece in enumerate(pieces_row):
@@ -63,3 +62,10 @@ class Board():
                 else:
                     self.empty_squares.append(pieces.EmptySquare(row, col))
 
+
+def convert_board_matrix(board_str):
+    # Board splitted in rows and columns, easy to find pieces
+    board_array = np.array(list(board_str), dtype=str)
+    board_array = board_array.reshape(16,16)
+
+    return board_array
