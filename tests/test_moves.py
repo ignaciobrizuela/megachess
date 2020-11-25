@@ -1,13 +1,18 @@
-from scripts import board
-from scripts import pieces
-from scripts import moves
+import sys
+import os
+sys.path.append(os.path.abspath('../scripts'))
+
+import board
+import pieces
+import moves
 import unittest
 import numpy as np
 
 class TestMoves(unittest.TestCase):
+    board_game = []
 
-    def test_rival_up(self):
-        board_str = ('PPPPPP    pppppp'
+    def setUp(self):
+        board_str = ('                '
                     '                '
                     '                '
                     '                ' 
@@ -22,40 +27,33 @@ class TestMoves(unittest.TestCase):
                     '                '
                     '                '
                     '                '
-                    'phbrqk  p PHBRQK')
+                    '                ')
+        self.board_game = board.Board(board_str)
 
-        board_test = board.Board(board_str)
-
+    def test_rival_up_pawn_vs_Pawn(self):
         black_pawn      = pieces.Pawn('p', 'black', 15, 0)
-        black_horse     = pieces.Horse('h', 'black', 15, 1)
-        black_bishop    = pieces.Bishop('b', 'black', 15, 2)
-        black_rook      = pieces.Rook('r', 'black', 15, 3)
-        black_queen     = pieces.Queen('q', 'black', 15, 4)
-        black_king      = pieces.King('k', 'black', 15, 5)
+        self.board_game.matrix[15][0] = 'p'
 
-        self.assertEqual((0, 0), (moves.rival_up(board_test, black_pawn)))
-        self.assertEqual((0, 1), (moves.rival_up(board_test, black_horse)))
-        self.assertEqual((0, 2), (moves.rival_up(board_test, black_bishop)))
-        self.assertEqual((0, 3), (moves.rival_up(board_test, black_rook)))
-        self.assertEqual((0, 4), (moves.rival_up(board_test, black_queen)))
-        self.assertEqual((0, 5), (moves.rival_up(board_test, black_king)))
+        white_pawn      = pieces.Pawn('P', 'white', 10, 0)
+        self.board_game.matrix[10][0] = 'P'
 
-        white_pawn      = pieces.Pawn('P', 'white', 15, 10)
-        white_horse     = pieces.Horse('H', 'white', 15, 11)
-        white_bishop    = pieces.Bishop('B', 'white', 15, 12)
-        white_rook      = pieces.Rook('P', 'white', 15, 13)
-        white_queen     = pieces.Queen('P', 'white', 15, 14)
-        white_king      = pieces.King('P', 'white', 15, 15)
+        self.assertEqual((10, 0), (moves.rival_up(self.board_game, black_pawn)))
 
-        self.assertEqual((0, 10), (moves.rival_up(board_test, white_pawn)))
-        self.assertEqual((0, 11), (moves.rival_up(board_test, white_horse)))
-        self.assertEqual((0, 12), (moves.rival_up(board_test, white_bishop)))
-        self.assertEqual((0, 13), (moves.rival_up(board_test, white_rook)))
-        self.assertEqual((0, 14), (moves.rival_up(board_test, white_queen)))
-        self.assertEqual((0, 15), (moves.rival_up(board_test, white_king)))
+    def test_rival_up_pawn_vs_pawn(self):
+        black_pawn1      = pieces.Pawn('p', 'black', 15, 0)
+        self.board_game.matrix[15][0] = 'p'
 
-        black_pawn      = pieces.Pawn('p', 'black', 15, 8)
-        self.assertIsNone((moves.rival_up(board_test, black_pawn)))
+        black_pawn2     = pieces.Pawn('p', 'black', 10, 0)
+        self.board_game.matrix[10][0] = 'p'
+
+        self.assertIsNone((moves.rival_up(self.board_game, black_pawn1)))
+
+    def test_rival_up_pawn_vs_empty(self):
+        black_pawn1      = pieces.Pawn('p', 'black', 15, 0)
+        self.board_game.matrix[15][0] = 'p'
+
+        self.assertIsNone((moves.rival_up(self.board_game, black_pawn1)))
+        
 
 # Run the Tests
 if __name__ == 'main':
