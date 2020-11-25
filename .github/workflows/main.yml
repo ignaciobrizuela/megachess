@@ -1,12 +1,12 @@
 on: push
 name: on push
 jobs:
-  gitHubActionForPytest:
-    name: GitHub Action for pytest
+  gitHubActionForUnittest:
+    name: GitHub Action for unittest
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: GitHub Action for pytest
-      uses: cclauss/GitHub-Action-for-pytest@master
+    - name: GitHub Action for unittest
+      uses: ignaciobrizuela/megachess@testing
       with:
         args: python3 -m unittest -v test_board.py && python3 -m unittest -v test_moves.py
