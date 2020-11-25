@@ -1,12 +1,11 @@
 language: python
 matrix:
   include:
-    - dist: bionic
     - dist: xenial
 python:
   - "3.8.0"
 install:
   - pip install -r requirements.txt
 script:
-  - python3 -m unittest -v test.test_moves
-  - python3 -m unittest -v test.test_board
+  - python3 -m unittest -v tests.test_moves
+  - python3 -m unittest -v tests.test_board
