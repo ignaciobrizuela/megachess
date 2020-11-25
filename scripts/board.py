@@ -5,7 +5,7 @@ class Board():
 
     def __init__(self, board_str):
         # Board array
-        self.board_array = convert_board_matrix(board_str)
+        self.matrix = convert_board_matrix(board_str)
         # Black pieces
         self.black_pawns      = []
         self.black_horses     = []
@@ -28,7 +28,7 @@ class Board():
         
     def get_pieces_from_board(self):
 
-        for row, pieces_row in enumerate(self.board_array):
+        for row, pieces_row in enumerate(self.matrix):
             for col, piece in enumerate(pieces_row):
                 # Creates a list with black pieces
                 if piece == 'p':
@@ -65,7 +65,7 @@ class Board():
 
 def convert_board_matrix(board_str):
     # Board splitted in rows and columns, easy to find pieces
-    board_array = np.array(list(board_str), dtype=str)
-    board_array = board_array.reshape(16,16)
+    matrix = np.array(list(board_str), dtype=str)
+    matrix = matrix.reshape(16,16)
 
-    return board_array
+    return matrix

@@ -171,10 +171,10 @@ writer = open('game.txt', 'w')
 def play(actual_board, color):
     # Split the board into rows of 16 pieces length
     actual_board = board.Board(actual_board)
-    writer.write(str(actual_board.board_array))
+    writer.write(str(actual_board.matrix))
     writer.write('\n')
 
-    print(actual_board.board_array)
+    print(actual_board.matrix)
     # Check if there is any queen abble to capture pieces
     try:
         from_row, from_col, to_row, to_col = gambit_king(actual_board, color)

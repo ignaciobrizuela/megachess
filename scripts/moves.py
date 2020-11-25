@@ -5,7 +5,7 @@ import pieces
 
 def rival_up(board, piece):
     # Get the whole piece column
-    column = board.board_array[:,piece.col]
+    column = board.matrix[:,piece.col]
 
     # Iterate each item from the piece row until zero
     for i in reversed(range(0, piece.row)):
@@ -27,7 +27,7 @@ def rival_up(board, piece):
 
 def rival_down(board, piece):
     # Get the whole piece column
-    column = board.board_array[:,piece.col]
+    column = board.matrix[:,piece.col]
 
     # Iterate each item from the piece row until 16
     for row in range(piece.row+1, 16):
@@ -47,7 +47,7 @@ def rival_down(board, piece):
     return None
 
 def rival_right(board, piece):
-    row = board.board_array[piece.row]
+    row = board.matrix[piece.row]
 
     for col in range(piece.col+1, 16):
         if piece.color == 'black':
@@ -64,7 +64,7 @@ def rival_right(board, piece):
     return None
 
 def rival_left(board, piece):
-    row = board.board_array[piece.row]
+    row = board.matrix[piece.row]
 
     for col in reversed(range(0, piece.col)):
         if piece.color == 'black':
@@ -88,14 +88,14 @@ def rival_up_right(board, piece):
     for i in range(1, n+1):
         if piece.color == 'black':
             # Look for pieces in diagonal i distance from my piece position
-            if board.board_array[piece.row-i][piece.col+i].isupper():
+            if board.matrix[piece.row-i][piece.col+i].isupper():
                 return piece.row-i, piece.col+i
-            elif board.board_array[piece.row-i][piece.col+i].islower():
+            elif board.matrix[piece.row-i][piece.col+i].islower():
                 return None
         elif piece.color == 'white':
-            if board.board_array[piece.row-i][piece.col+i].islower():
+            if board.matrix[piece.row-i][piece.col+i].islower():
                 return piece.row-i, piece.col+i
-            elif board.board_array[piece.row-i][piece.col+i].isupper():
+            elif board.matrix[piece.row-i][piece.col+i].isupper():
                 return None
             
     return None
@@ -105,14 +105,14 @@ def rival_up_left(board, piece):
 
     for i in range(1, n+1):
         if piece.color == 'black':
-            if board.board_array[piece.row-i][piece.col-i].isupper():
+            if board.matrix[piece.row-i][piece.col-i].isupper():
                 return piece.row-i, piece.col+i
-            elif board.board_array[piece.row-i][piece.col-i].islower():
+            elif board.matrix[piece.row-i][piece.col-i].islower():
                 return None
         elif piece.color == 'white':
-            if board.board_array[piece.row-i][piece.col-i].islower():
+            if board.matrix[piece.row-i][piece.col-i].islower():
                 return piece.row-i, piece.col-i
-            elif board.board_array[piece.row-i][piece.col-i].isupper():
+            elif board.matrix[piece.row-i][piece.col-i].isupper():
                 return None
             
     return None
@@ -122,14 +122,14 @@ def rival_down_right(board, piece):
 
     for i in range(1, n+1):
         if piece.color == 'black':
-            if board.board_array[piece.row+i][piece.col+i].isupper():
+            if board.matrix[piece.row+i][piece.col+i].isupper():
                 return piece.row+i, piece.col+i
-            elif board.board_array[piece.row+i][piece.col+i].islower():
+            elif board.matrix[piece.row+i][piece.col+i].islower():
                 return None
         elif piece.color == 'white':
-            if board.board_array[piece.row+i][piece.col+i].islower():
+            if board.matrix[piece.row+i][piece.col+i].islower():
                 return piece.row+i, piece.col+i
-            elif board.board_array[piece.row+i][piece.col+i].isupper():
+            elif board.matrix[piece.row+i][piece.col+i].isupper():
                 return None
 
     return None
@@ -139,14 +139,14 @@ def rival_down_left(board, piece):
 
     for i in range(1, n+1):
         if piece.color == 'black':
-            if board.board_array[piece.row+i][piece.col-i].isupper():
+            if board.matrix[piece.row+i][piece.col-i].isupper():
                 return piece.row+i, piece.col-i
-            elif board.board_array[piece.row+i][piece.col-i].islower():
+            elif board.matrix[piece.row+i][piece.col-i].islower():
                 return None
         elif piece.color == 'white':
-            if board.board_array[piece.row+i][piece.col-i].islower():
+            if board.matrix[piece.row+i][piece.col-i].islower():
                 return piece.row+i, piece.col-i
-            elif board.board_array[piece.row+i][piece.col-i].isupper():
+            elif board.matrix[piece.row+i][piece.col-i].isupper():
                 return None
 
     return None
