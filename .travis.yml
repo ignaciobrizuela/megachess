@@ -2,8 +2,8 @@ language: python
 python:
   - "3.6.9"
 install:
-  - pip install -r requeriments.txt
-scripts:
+  - pip install -r numpy
+script:
   - cd ./tests
   - python3 -m unittest -v test_moves.py
   - python3 -m unittest -v test_board.py
