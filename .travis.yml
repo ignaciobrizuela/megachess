@@ -1,4 +1,8 @@
 language: python
+matrix:
+  include:
+    - dist: bionic
+    - dist: xenial
 python:
   - "3.8.0"
 install:
