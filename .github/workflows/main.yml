@@ -5,8 +5,8 @@ jobs:
     name: GitHub Action for unittest
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@main
     - name: GitHub Action for unittest
-      uses: ignaciobrizuela/megachess@testing
+      uses: ignaciobrizuela/megachess@main
       with:
         args: python3 -m unittest -v test_board.py && python3 -m unittest -v test_moves.py
