@@ -1,8 +1,8 @@
-import sys
-import os
-sys.path.append(os.path.abspath('../scripts'))
+# import sys
+# import os
+# sys.path.append(os.path.abspath('../scripts'))
 
-import board
+from scripts import board
 import unittest
 
 class boardTest(unittest.TestCase):

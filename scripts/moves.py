@@ -1,6 +1,6 @@
 # Made by brz
 import asyncio
-import pieces
+from scripts import pieces
 
 
 def rival_up(board, piece):

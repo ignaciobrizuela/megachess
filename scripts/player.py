@@ -1,9 +1,9 @@
 # Made by brz
 import asyncio
-import board
-import moves
-import match
-import pieces
+from scripts import board
+from scripts import moves
+from scripts import match
+from scripts import pieces
 import numpy as np 
 
 

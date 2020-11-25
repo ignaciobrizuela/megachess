@@ -5,7 +5,7 @@ import json
 from random import randint
 import sys
 import websockets
-import player
+from scripts import player
 from decouple import config
 
 auth_token = config('AUTH_TOKEN')

@@ -1,4 +1,4 @@
-import pieces
+from scripts import pieces
 import numpy as np
 
 class Board():

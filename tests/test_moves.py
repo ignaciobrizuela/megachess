@@ -1,10 +1,6 @@
-import sys
-import os
-sys.path.append(os.path.abspath('../scripts'))
-
-import board
-import pieces
-import moves
+from scripts import  board
+from scripts import  pieces
+from scripts import  moves
 import unittest
 import numpy as np
 
