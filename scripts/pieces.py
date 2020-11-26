@@ -2,8 +2,7 @@
 
 class Piece():
 
-    def __init__(self, tag, color, row, col):
-        self.tag    = tag
+    def __init__(self, color, row, col):
         self.color  = color
         self.row    = row
         self.col    = col
