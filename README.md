@@ -17,6 +17,7 @@ This challenge requires websockets and I chossed Python 3 to solve it.
 - The board is 16x16 squares. So, now there are the quadruple of pieces.
 
 ![board](https://user-images.githubusercontent.com/40641262/100382354-f0e78900-2ff9-11eb-96c1-bbbecb35b228.png)
+
 _This is a board picture_
 
 - There is no check or checkmate.
