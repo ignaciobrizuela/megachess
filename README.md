@@ -12,19 +12,18 @@ This challenge requires websockets and I chossed Python 3 to solve it.
 * Python 3.
 
 ## Rules
-- The rules are the same as a in a regular chess, except that instead of crown a pawn in the opposite side of the board pawns crown in the middle squares.
+- The rules are the same as a in a regular chess, except that instead of crown a pawn in the opposite side of the board, pawns crown in the middle squares.
 
 - The board is 16x16 squares. So, now there are the quadruple of pieces.
 
 ![board](https://user-images.githubusercontent.com/40641262/100382354-f0e78900-2ff9-11eb-96c1-bbbecb35b228.png)
 
-_This is a board picture_
 
 - There is no check or checkmate.
 
 - There are 100 moves for color, 200 in total.
 
-- The game is over when one color capture all rival pieces o when the amount of movements reach 0.
+- The game is over when one color capture all rival pieces or when the amount of movements reaches 0.
 
 - Win who get more points.
 
@@ -39,7 +38,7 @@ _This is a board picture_
 - If there is a capture, the player scores 10 times the piece value captured. 
 
 ## Program structure
-This project is made by three parts. It has a Server which controls user accounts, matches, tournaments, etc. and the way to do it is sending and attending json requests.
+This project is made by three parts. There is a Server which controls user accounts, matches, tournaments, etc. and the way it does it is sending and attending json requests.
 
 ![program_flow](https://user-images.githubusercontent.com/40641262/100389612-9dcb0180-300c-11eb-9013-ca4a4b75c10d.png)
 
@@ -98,6 +97,31 @@ This class transforms the board string into a matrix. This makes easier to locat
 
 Also this class has a method _get_pieces_from_board_ to list all pieces in the board and make them as attributes of the class.
 So, if we create a board object we will have access to the matrix board and all pieces availables to play.
+
+### Pieces
+There is a father class with all attributes in common: _color, row, col_. The color piece and its position.
+Then there are children classes which inherite from Pieces and they are: _Pawn, Horse, Bishop, Rook, Queen, King_.
+These classes add a method to validate their movements: _jump_ and _capture_.
+
+E.g:
+To create a black pawn it is necessary to instance a new Pawn object like this:
+```
+black_pawn = Pawn('black', 3, 0)
+```
+This is a black pawn at row 3, col 0.
+
+We use this line to ask for a capture:
+```
+black_pawn.valid_move_capture(rival_row, rival_col)
+```
+This function checks if there is a valid move for that kind of pawn (color).
+
+Also, there is another function to valid a jump:
+```
+black_pawn.valid_jump('down')
+```
+This function checks the position of the pawn and returns the squares number that it can jump.
+In the e.g. before the pawn is in the row 3 so it can jump 2 squares, so the return of the function will be 2.
 
 ## Author ✒️
 
