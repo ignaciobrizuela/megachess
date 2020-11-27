@@ -114,14 +114,14 @@ We use this line to ask for a capture:
 ```
 black_pawn.valid_move_capture(rival_row, rival_col)
 ```
-This function checks if there is a valid move for that kind of pawn (color).
+This function checks if it is a valid move for that kind of pawn (color) and returns True, otherwise False.
 
-Also, there is another function to valid a jump:
+Also, there is another function to make a pawn jumps:
 ```
-black_pawn.valid_jump('down')
+black_pawn.make_a_jump()
 ```
-This function checks the position of the pawn and returns the squares number that it can jump.
-In the e.g. before the pawn is in the row 3 so it can jump 2 squares, so the return of the function will be 2.
+This function checks the position of the pawn and returns the number of squares that it can jump.
+In the e.g. before the pawn is in the row 3 so it can jump 2 squares, so the function returns 2 as consequence.
 
 ## Author ✒️
 
