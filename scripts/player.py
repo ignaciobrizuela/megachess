@@ -35,7 +35,7 @@ def gambit_king(board, color):
 
         i += 1
 
-    return capture(kings)
+    return moves.can_capture(kings)
 
 def gambit_rook(board, color):
     rooks   = board.black_rooks   if color == 'black' else board.white_rooks
@@ -58,7 +58,7 @@ def gambit_rook(board, color):
 
         i += 1
 
-    return capture(rooks)
+    return moves.can_capture(rooks)
 
 def gambit_bishop(board, color):
     bishops   = board.black_bishops if color == 'black' else board.white_bishops
@@ -81,7 +81,7 @@ def gambit_bishop(board, color):
 
         i += 1
 
-    return capture(bishops)
+    return moves.can_capture(bishops)
 
 def gambit_pawn(board, color):
     pawns   = board.black_pawns   if color == 'black' else board.white_pawns
@@ -100,7 +100,7 @@ def gambit_pawn(board, color):
 
         i += 1
 
-    return capture(pawns)
+    return moves.can_capture(pawns)
 
 
 
@@ -136,17 +136,14 @@ def gambit_queen(board, color):
         i += 1
         
 
-    return capture(queens)
+    return moves.can_capture(queens)
 
     
 def crown_a_pawn(board, color):
     pawns = board.black_pawns if color=='black' else board.white_pawns
     i = len(pawns) - 1 if color=='black' else 0
 
-    if color == 'black':
-        n = pawns[i].valid_move_jump('down')
-    elif color == 'white':
-        n = pawns[i].valid_move_jump('up')
+    n = pawns[i].make_a_jump()
 
     to_row = pawns[i].row + n
     to_col = pawns[i].col
@@ -154,16 +151,7 @@ def crown_a_pawn(board, color):
     return pawns[i].row, pawns[i].col, to_row, to_col
 
 
-def capture(pieces):
-    for piece in pieces:
-        for rival in piece.rivals:
-            # print(piece.tag, piece.row, piece.col)
-            # print('rival', rival[0], rival[1])
-            # print(piece.valid_move_capture(rival[0], rival[1]))
-            if rival != None and piece.valid_move_capture(rival[0], rival[1]):
-                return piece.row, piece.col, rival[0], rival[1]
-        
-    return None
+
 
 
 writer = open('game.txt', 'w')
@@ -175,7 +163,7 @@ def play(actual_board, color):
     writer.write('\n')
 
     print(actual_board.matrix)
-    # Check if there is any queen abble to capture pieces
+    # Check if there is any queen abble to moves.can_capture pieces
     try:
         from_row, from_col, to_row, to_col = gambit_king(actual_board, color)
     except Exception as e:
@@ -195,7 +183,8 @@ def play(actual_board, color):
                             from_row, from_col, to_row, to_col = crown_a_pawn(actual_board, color)
                         except Exception as e:
                             print('It cannot move')
-
+                            
+    # writer.write(str(from_row, from_col, to_row, to_col))
     print(from_row, from_col, to_row, to_col)
     return from_row, from_col, to_row, to_col
     # try:

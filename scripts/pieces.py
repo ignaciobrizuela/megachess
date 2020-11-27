@@ -10,18 +10,21 @@ class Piece():
 
 class Pawn(Piece):
 
-    def valid_move_jump(self, direction):
-        if self.color == 'black' and direction == 'down':
+    def make_a_jump(self):
+        if self.color == 'black':
             if self.row == 3:
                 return 2
             else:
                 return 1
 
-        elif self.color == 'white' and direction == 'up':
+        elif self.color == 'white':
             if self.row == 12:
                 return -2
             else:
                 return -1
+        else:
+            return None
+
 
     def valid_move_capture(self, rival_row, rival_col):
         n_squares_row = rival_row - self.row
