@@ -6,61 +6,75 @@ class Board():
     def __init__(self, board_str):
         # Board array
         self.matrix = convert_board_matrix(board_str)
-        # Black pieces
-        self.black_pawns      = []
-        self.black_horses     = []
-        self.black_bishops    = []
-        self.black_rooks      = []
-        self.black_queens     = []
-        self.black_kings      = []
-        # White pieces
-        self.white_pawns      = []
-        self.white_horses     = []
-        self.white_bishops    = []
-        self.white_rooks      = []
-        self.white_queens     = []
-        self.white_kings      = []
-        # Empty squares
-        self.empty_squares    = []
+        self.matrix_pieces = np.full((16, 16), pieces.Piece('black',0,0))
         
         # Get pieces
-        self.get_pieces_from_board()
+        self.complete_matrix_pieces()
         
-    def get_pieces_from_board(self):
+    def complete_matrix_pieces(self):
 
         for row, pieces_row in enumerate(self.matrix):
             for col, piece in enumerate(pieces_row):
                 # Creates a list with black pieces
                 if piece == 'p':
-                    self.black_pawns.append(pieces.Pawn('black', row, col))
+                    black_pawn = pieces.Pawn('black', row, col)
+                    self.black_pawns.append(black_pawn)
+                    self.matrix_pieces[row][col] = black_pawn
                 elif piece == 'h':
-                    self.black_horses.append(pieces.Horse('black', row, col))
+                    black_horse = pieces.Horse('black', row, col)
+                    self.black_horses.append(black_horse)
+                    self.matrix_pieces[row][col] = black_horse
                 elif piece == 'b':
-                    self.black_bishops.append(pieces.Bishop('black', row, col))
+                    black_bishop = pieces.Bishop('black', row, col)
+                    self.black_bishops.append(black_bishop)
+                    self.matrix_pieces[row][col] = black_bishop
                 elif piece == 'r':
-                    self.black_rooks.append(pieces.Rook('black', row, col))
+                    black_rook = pieces.Rook('black', row, col)
+                    self.black_rooks.append(black_rook)
+                    self.matrix_pieces[row][col] = black_rook
                 elif piece == 'q':
-                    self.black_queens.append(pieces.Queen('black', row, col))
+                    black_queen = pieces.Queen('black', row, col)
+                    self.black_queens.append(black_queen)
+                    self.matrix_pieces[row][col] = black_queen
                 elif piece == 'k':
-                    self.black_kings.append(pieces.King('black', row, col))
+                    black_king = pieces.King('black', row, col)
+                    self.black_kings.append(black_king)
+                    self.matrix_pieces[row][col] = black_king
 
                 # Creates a list with white pieces
                 elif piece == 'P':
-                    self.white_pawns.append(pieces.Pawn('white', row, col))
+                    white_pawn = pieces.Pawn('white', row, col)
+                    self.white_pawns.append(white_pawn)
+                    self.matrix_pieces[row][col] = white_pawn
                 elif piece == 'H':
-                    self.white_horses.append(pieces.Horse('white', row, col))
+                    white_horse = pieces.Horse('white', row, col)
+                    self.white_horses.append(white_horse)
+                    self.matrix_pieces[row][col] = white_horse
                 elif piece == 'B':
-                    self.white_bishops.append(pieces.Bishop('white', row, col))
+                    white_bishop = pieces.Bishop('white', row, col)
+                    self.white_bishops.append(white_bishop)
+                    self.matrix_pieces[row][col] = white_bishop
                 elif piece == 'R':
-                    self.white_rooks.append(pieces.Rook('white', row, col))
+                    white_rook = pieces.Rook('white', row, col)
+                    self.white_rooks.append(white_rook)
+                    self.matrix_pieces[row][col] = white_rook
                 elif piece == 'Q':
-                    self.white_queens.append(pieces.Queen('white', row, col))
+                    white_queen = pieces.Queen('white', row, col)
+                    self.white_queens.append(white_queen)
+                    self.matrix_pieces[row][col] = white_queen
                 elif piece == 'K':
-                    self.white_kings.append(pieces.King('white', row, col))
+                    white_king = pieces.King('white', row, col)
+                    self.white_kings.append(white_king)
+                    self.matrix_pieces[row][col] = white_king
 
                 # Creates a list with empty squares
                 else:
-                    self.empty_squares.append(pieces.EmptySquare(row, col))
+                    empty_square = pieces.EmptySquare(row, col)
+                    self.empty_squares.append(empty_square)
+                    self.matrix_pieces[row][col] = empty_square
+
+    def get_piece(self, row, col):
+        return self.matrix[row][col]
 
 
 def convert_board_matrix(board_str):
