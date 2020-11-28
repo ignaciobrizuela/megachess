@@ -152,13 +152,16 @@ def rival_down_left(board, piece):
     return None
 
 
-def can_capture(pieces):
-    for piece in pieces:
-        for rival in piece.rivals:
-            # print(piece.tag, piece.row, piece.col)
-            # print('rival', rival[0], rival[1])
-            # print(piece.valid_move_capture(rival[0], rival[1]))
-            if rival != None and piece.valid_move_capture(rival[0], rival[1]):
-                return piece.row, piece.col, rival[0], rival[1]
+# def can_capture(pieces):
+#     for piece in pieces:
+#         for rival in piece.rivals:
+#             if rival != None and piece.valid_move_capture(rival[0], rival[1]):
+#                 return piece.row, piece.col, rival[0], rival[1]
         
-    return None
+#     return None
+
+def can_capture(piece, rival):
+    if piece.valid_move_capture(rival.row, rival.col):
+        return piece.row, piece.col, rival.row, rival.col
+    else:
+        return None
