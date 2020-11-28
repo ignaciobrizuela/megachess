@@ -2,7 +2,6 @@
 import asyncio
 from scripts import board
 from scripts import moves
-from scripts import match
 from scripts import pieces
 import numpy as np 
 
@@ -183,24 +182,12 @@ def play(actual_board, color):
                             from_row, from_col, to_row, to_col = crown_a_pawn(actual_board, color)
                         except Exception as e:
                             print('It cannot move')
-                            
-    # writer.write(str(from_row, from_col, to_row, to_col))
+
+    # Show movement and save it                        
     print(from_row, from_col, to_row, to_col)
+    movement = str(from_row) + ',' + str(from_col) + '  ' + str(to_row) + ',' + str(to_col)
+    writer.write(movement)
+    writer.write('\n')
+
     return from_row, from_col, to_row, to_col
-    # try:
-    #     try:
-    #         try:
-    #             from_row, from_col, to_row, to_col = gambit_king(actual_board, color)
-    #             return from_row, from_col, to_row, to_col
-    #         except Exception as e:
-    #             pass
-    #             from_row, from_col, to_row, to_col = gambit_rook(actual_board, color)
-    #             return from_row, from_col, to_row, to_col
-    #     except Exception as e:
-    #         from_row, from_col, to_row, to_col = gambit_queen(actual_board, color)
-    #         return from_row, from_col, to_row, to_col
-    # If there is not, try to crown a pawn
-    # except Exception as e:
-    #     from_row, from_col, to_row, to_col = crown_a_pawn(actual_board, color)
-    #     return from_row, from_col, to_row, to_col
     
