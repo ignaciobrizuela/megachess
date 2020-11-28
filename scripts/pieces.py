@@ -6,9 +6,13 @@ class Piece():
         self.color  = color
         self.row    = row
         self.col    = col
+        self.points  = 0
         self.rivals = []
 
 class Pawn(Piece):
+    def __init__(self, color, row, col):
+        super().__init__(color, row, col)
+        self.points = 10
 
     def make_a_jump(self):
         if self.color == 'black':
@@ -38,6 +42,9 @@ class Pawn(Piece):
             return None
 
 class Horse(Piece):
+    def __init__(self, color, row, col):
+        super().__init__(color, row, col)
+        self.points = 30
 
     def valid_move_capture(self, rival_row, rival_col):
         n_squares_row = rival_row - self.row
@@ -51,6 +58,9 @@ class Horse(Piece):
         #     return None
 
 class Bishop(Piece):
+    def __init__(self, color, row, col):
+        super().__init__(color, row, col)
+        self.points = 40
 
     def valid_move_capture(self, rival_row, rival_col):
         n_squares_row = abs(rival_row - self.row)
@@ -62,6 +72,9 @@ class Bishop(Piece):
             return None
 
 class Rook(Piece):
+    def __init__(self, color, row, col):
+        super().__init__(color, row, col)
+        self.points = 60
 
     def valid_move_capture(self, rival_row, rival_col):
         n_squares_row = rival_row - self.row
@@ -73,11 +86,17 @@ class Rook(Piece):
             return None
 
 class Queen(Piece):
+    def __init__(self, color, row, col):
+        super().__init__(color, row, col)
+        self.points = 5
 
     def valid_move_capture(self, rival_row, rival_col):
         return True
 
 class King(Piece):
+    def __init__(self, color, row, col):
+        super().__init__(color, row, col)
+        self.points = 100
 
     def valid_move_capture(self, rival_row, rival_col):
         n_squares_row = rival_row - self.row
@@ -95,4 +114,3 @@ class EmptySquare():
     def __init__(self, row, col):
         self.row  = row
         self.col  = col
-        self.tag = ' '
