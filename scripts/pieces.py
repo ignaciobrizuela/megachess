@@ -3,7 +3,7 @@
 class Piece():
 
     def __init__(self, color, row, col):
-        self.color  = color
+        self.color  = color     # True == white, False == black
         self.row    = row
         self.col    = col
         self.points  = 0
@@ -15,13 +15,13 @@ class Pawn(Piece):
         self.points = 10
 
     def make_a_jump(self):
-        if self.color == 'black':
+        if self.color == False:
             if self.row == 3:
                 return 2
             else:
                 return 1
 
-        elif self.color == 'white':
+        elif self.color == True:
             if self.row == 12:
                 return -2
             else:
@@ -34,7 +34,7 @@ class Pawn(Piece):
         n_squares_col = abs(rival.col - self.col)
 
         # If it is a black piece
-        if self.color == 'black':
+        if self.color == False:
             # Given an empty square
             if isinstance(rival, EmptySquare):
                 # From row 3 can jump 2 or 1 squares.
@@ -52,7 +52,7 @@ class Pawn(Piece):
                 return False
 
         # If it is a white piece
-        if self.color == 'white':
+        if self.color == True:
             # Given an empty square
             if isinstance(rival, EmptySquare):
                 # From row 12 can jump 2 or 1 squares.
@@ -107,7 +107,7 @@ class Rook(Piece):
         n_squares_row = abs(rival.row - self.row)
         n_squares_col = abs(rival.col - self.col)
 
-        if n_squares_row > 0 and n_squares_col == 0 or n_squares_row == 0 and n_squares_col > 0:
+        if (n_squares_row > 0 and n_squares_col == 0) or (n_squares_row == 0 and n_squares_col > 0):
             return True
         else:
             return False
@@ -141,3 +141,4 @@ class EmptySquare():
     def __init__(self, row, col):
         self.row  = row
         self.col  = col
+        self.color = None
