@@ -3,7 +3,33 @@ import asyncio
 from scripts import pieces
 
 
-def rival_up(board, piece):
+play_moves = []
+
+def set_score(piece, rival, color):
+    factor = 1 if piece.color == color else -1
+    score = rival.points * 10 * factor
+
+    play = {'piece_row': piece.row, 
+            'piece_col': piece.col,
+            'rival_row': rival.row,
+            'rival_col': rival.col,
+            'score': score}
+    play_moves.append(play)
+
+def set_score_jump(piece, rival, color):
+    score = piece.points 
+
+    play = {'piece_row': piece.row, 
+            'piece_col': piece.col,
+            'rival_row': rival.row,
+            'rival_col': rival.col,
+            'score': score}
+    play_moves.append(play)
+
+def get_score():
+    return play_moves
+
+def scan_up(board, piece):
     # Get the whole piece column
     column = board.matrix[:,piece.col]
 
@@ -12,10 +38,12 @@ def rival_up(board, piece):
         # If my piece is black, look for a white piece
         if piece.color == 'black':
             if column[i].isupper():
-                return i, piece.col
+                board.matrix_pieces[i][piece.col]
+                if can_capture(piece, rival):
+                    set_score(piece, rival, color)
             # If there is one black piece on the way, there is no rival
-            elif column[i].islower():
-                return None
+            elif column[i] == ' ':
+                piece.valid_move()
         elif piece.color == 'white':
             if column[i].islower():
                 return i, piece.col
@@ -25,7 +53,7 @@ def rival_up(board, piece):
     return None
 
 
-def rival_down(board, piece):
+def scan_down(board, piece):
     # Get the whole piece column
     column = board.matrix[:,piece.col]
 
@@ -46,7 +74,7 @@ def rival_down(board, piece):
 
     return None
 
-def rival_right(board, piece):
+def scan_right(board, piece):
     row = board.matrix[piece.row]
 
     for col in range(piece.col+1, 16):
@@ -63,7 +91,7 @@ def rival_right(board, piece):
     
     return None
 
-def rival_left(board, piece):
+def scan_left(board, piece):
     row = board.matrix[piece.row]
 
     for col in reversed(range(0, piece.col)):
@@ -80,7 +108,7 @@ def rival_left(board, piece):
     
     return None
 
-def rival_up_right(board, piece):
+def scan_up_right(board, piece):
     # Get the maximun diagonal number of squares that it can move
     n = min(piece.row, 15-piece.col)
 
@@ -100,13 +128,13 @@ def rival_up_right(board, piece):
             
     return None
 
-def rival_up_left(board, piece):
+def scan_up_left(board, piece):
     n = min(piece.row, piece.col)
 
     for i in range(1, n+1):
         if piece.color == 'black':
             if board.matrix[piece.row-i][piece.col-i].isupper():
-                return piece.row-i, piece.col+i
+                return piece.row-i, piece.col-i
             elif board.matrix[piece.row-i][piece.col-i].islower():
                 return None
         elif piece.color == 'white':
@@ -117,7 +145,7 @@ def rival_up_left(board, piece):
             
     return None
 
-def rival_down_right(board, piece):
+def scan_down_right(board, piece):
     n = min(15-piece.row, 15-piece.col)
 
     for i in range(1, n+1):
@@ -134,7 +162,7 @@ def rival_down_right(board, piece):
 
     return None
 
-def rival_down_left(board, piece):
+def scan_down_left(board, piece):
     n = min(15-piece.row, piece.col)
 
     for i in range(1, n+1):
@@ -152,16 +180,8 @@ def rival_down_left(board, piece):
     return None
 
 
-# def can_capture(pieces):
-#     for piece in pieces:
-#         for rival in piece.rivals:
-#             if rival != None and piece.valid_move_capture(rival[0], rival[1]):
-#                 return piece.row, piece.col, rival[0], rival[1]
-        
-#     return None
-
 def can_capture(piece, rival):
-    if piece.valid_move_capture(rival.row, rival.col):
-        return piece.row, piece.col, rival.row, rival.col
+    if piece.valid_move(rival):
+        return True
     else:
-        return None
+        return False
