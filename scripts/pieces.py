@@ -29,68 +29,95 @@ class Pawn(Piece):
         else:
             return None
 
+    def valid_move(self, rival):
+        n_squares_row = rival.row - self.row
+        n_squares_col = abs(rival.col - self.col)
 
-    def valid_move_capture(self, rival_row, rival_col):
-        n_squares_row = rival_row - self.row
-        n_squares_col = abs(rival_col - self.col)
+        # If it is a black piece
+        if self.color == 'black':
+            # Given an empty square
+            if isinstance(rival, EmptySquare):
+                # From row 3 can jump 2 or 1 squares.
+                if self.row == 3 and n_squares_row == (2 or 1) and n_squares_col == 0:
+                    return True
+                # From any other row can jump only 1.
+                elif n_squares_row == 1 and n_squares_col == 0:
+                    return True
+                else:
+                    return False
+            # Can capture pieces in diagonal
+            elif n_squares_row == 1 and n_squares_col == 1:
+                return True
+            else:
+                return False
 
-        if self.color == 'black' and n_squares_row == 1 and n_squares_col == 1:
-            return True
-        elif self.color == 'white' and n_squares_row == -1 and n_squares_col == 1:
-            return True
-        else:
-            return None
+        # If it is a white piece
+        if self.color == 'white':
+            # Given an empty square
+            if isinstance(rival, EmptySquare):
+                # From row 12 can jump 2 or 1 squares.
+                if self.row == 12 and n_squares_row == (-2 or 1) and n_squares_col == 0:
+                    return True
+                # From any other row can jump only 1.
+                elif n_squares_row == -1 and n_squares_col == 0:
+                    return True
+                else:
+                    return False
+            # Can capture pieces in diagonal
+            elif n_squares_row == -1 and n_squares_col == 1:
+                return True
+            else:
+                return False
+
 
 class Horse(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.points = 30
 
-    def valid_move_capture(self, rival_row, rival_col):
-        n_squares_row = rival_row - self.row
-        n_squares_col = rival_col - self.col
+    def valid_move(self, rival):
+        n_squares_row = abs(rival.row - self.row)
+        n_squares_col = abs(rival.col - self.col)
 
-        # print(n_squares_row, n_squares_col)
-
-        # if n_squares_row > 0 and n_squares_col == 0 or n_squares_row == 0 and n_squares_col >= 1:
-        #     return True
-        # else:
-        #     return None
+        if n_squares_row == 2 and n_squares_col == 1:
+            return True
+        else:
+            return False
 
 class Bishop(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.points = 40
 
-    def valid_move_capture(self, rival_row, rival_col):
-        n_squares_row = abs(rival_row - self.row)
-        n_squares_col = abs(rival_col - self.col)
+    def valid_move(self, rival):
+        n_squares_row = abs(rival.row - self.row)
+        n_squares_col = abs(rival.col - self.col)
 
         if n_squares_row == n_squares_col:
             return True
         else:
-            return None
+            return False
 
 class Rook(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.points = 60
 
-    def valid_move_capture(self, rival_row, rival_col):
-        n_squares_row = rival_row - self.row
-        n_squares_col = rival_col - self.col
+    def valid_move(self, rival):
+        n_squares_row = abs(rival.row - self.row)
+        n_squares_col = abs(rival.col - self.col)
 
-        if n_squares_row > 0 and n_squares_col == 0 or n_squares_row == 0 and n_squares_col >= 1:
+        if n_squares_row > 0 and n_squares_col == 0 or n_squares_row == 0 and n_squares_col > 0:
             return True
         else:
-            return None
+            return False
 
 class Queen(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.points = 5
 
-    def valid_move_capture(self, rival_row, rival_col):
+    def valid_move(self, rival):
         return True
 
 class King(Piece):
@@ -98,9 +125,9 @@ class King(Piece):
         super().__init__(color, row, col)
         self.points = 100
 
-    def valid_move_capture(self, rival_row, rival_col):
-        n_squares_row = rival_row - self.row
-        n_squares_col = rival_col - self.col
+    def valid_move(self, rival):
+        n_squares_row = rival.row - self.row
+        n_squares_col = rival.col - self.col
 
         if n_squares_row <= 1 and n_squares_col <= 1:
             return True
