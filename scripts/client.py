@@ -1,5 +1,4 @@
 # Made by brz
-
 import asyncio
 import json
 from random import randint
