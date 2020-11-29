@@ -1,7 +1,7 @@
 # Made by brz
 import unittest
 from scripts import board
-from scripts import moves
+from scripts import scans
 from scripts import pieces
 
 class TestMoves(unittest.TestCase):
@@ -26,8 +26,8 @@ class TestMoves(unittest.TestCase):
         self.board_game = board.Board(board_str)
 
     def test_scan_up(self):
-        queen = pieces.Queen('black', 8, 8)
-        pawn = pieces.Pawn('white', 5, 8)
+        queen = pieces.Queen(False, 8, 8)
+        pawn = pieces.Pawn(True, 5, 8)
 
         self.board_game.matrix_pieces[8][8] = queen
         self.board_game.matrix_pieces[5][8] = pawn
@@ -40,8 +40,8 @@ class TestMoves(unittest.TestCase):
 
     
     def test_scan_up_right(self):
-        queen = pieces.Queen('black', 8, 8)
-        pawn = pieces.Pawn('white', 5, 11)
+        queen = pieces.Queen(False, 8, 8)
+        pawn = pieces.Pawn(True, 5, 11)
 
         self.board_game.matrix_pieces[8][8] = queen
         self.board_game.matrix_pieces[5][11] = pawn
@@ -54,8 +54,8 @@ class TestMoves(unittest.TestCase):
 
     
     def test_scan_right(self):
-        queen = pieces.Queen('black', 8, 8)
-        pawn = pieces.Pawn('white', 8, 11)
+        queen = pieces.Queen(False, 8, 8)
+        pawn = pieces.Pawn(True, 8, 11)
 
         self.board_game.matrix_pieces[8][8] = queen
         self.board_game.matrix_pieces[8][11] = pawn
@@ -67,8 +67,8 @@ class TestMoves(unittest.TestCase):
         self.assertIsInstance(next(right), pieces.Pawn)
 
     def test_scan_down_right(self):
-        queen = pieces.Queen('black', 8, 8)
-        pawn = pieces.Pawn('white', 11, 11)
+        queen = pieces.Queen(False, 8, 8)
+        pawn = pieces.Pawn(True, 11, 11)
 
         self.board_game.matrix_pieces[8][8] = queen
         self.board_game.matrix_pieces[11][11] = pawn
@@ -80,8 +80,8 @@ class TestMoves(unittest.TestCase):
         self.assertIsInstance(next(down_right), pieces.Pawn)
 
     def test_scan_down(self):
-        queen = pieces.Queen('black', 8, 8)
-        pawn = pieces.Pawn('white', 11, 8)
+        queen = pieces.Queen(False, 8, 8)
+        pawn = pieces.Pawn(True, 11, 8)
 
         self.board_game.matrix_pieces[8][8] = queen
         self.board_game.matrix_pieces[11][8] = pawn
@@ -93,8 +93,8 @@ class TestMoves(unittest.TestCase):
         self.assertIsInstance(next(down), pieces.Pawn)
 
     def test_scan_down_left(self):
-        queen = pieces.Queen('black', 8, 8)
-        pawn = pieces.Pawn('white', 11, 5)
+        queen = pieces.Queen(False, 8, 8)
+        pawn = pieces.Pawn(True, 11, 5)
 
         self.board_game.matrix_pieces[8][8] = queen
         self.board_game.matrix_pieces[11][5] = pawn
@@ -106,8 +106,8 @@ class TestMoves(unittest.TestCase):
         self.assertIsInstance(next(down_left), pieces.Pawn)
 
     def test_scan_left(self):
-        queen = pieces.Queen('black', 8, 8)
-        pawn = pieces.Pawn('white', 8, 5)
+        queen = pieces.Queen(False, 8, 8)
+        pawn = pieces.Pawn(True, 8, 5)
 
         self.board_game.matrix_pieces[8][8] = queen
         self.board_game.matrix_pieces[8][5] = pawn
@@ -119,8 +119,8 @@ class TestMoves(unittest.TestCase):
         self.assertIsInstance(next(left), pieces.Pawn)
 
     def test_scan_up_left(self):
-        queen = pieces.Queen('black', 8, 8)
-        pawn = pieces.Pawn('white', 5, 5)
+        queen = pieces.Queen(False, 8, 8)
+        pawn = pieces.Pawn(True, 5, 5)
 
         self.board_game.matrix_pieces[8][8] = queen
         self.board_game.matrix_pieces[5][5] = pawn
