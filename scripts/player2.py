@@ -1,45 +1,63 @@
 # Made by brz
 import asyncio
 from scripts import board
-from scripts import moves
-from scripts import pieces
 import numpy as np 
+from scripts import pieces
+from scripts import scans
+from scripts import score
 
+def scan(actual_score, scan_function, piece, color):
+    stop = False
+
+    while stop == False:
+        try:
+            result = next(scan_function)
+        except Exception as e:
+            break
+
+        if isinstance(result, pieces.EmptySquare):
+            if piece.valid_move(result):
+                actual_score.set_score(piece, result, color)
+            else:
+                stop = True
+
+        elif result.color != piece.color:
+            if piece.valid_move(result):
+                actual_score.set_score(piece, result, color)
+                stop = True
+            else:
+                stop = True
+
+        else:
+            stop = True
 
 def minimax(actual_board, color):
-    rivals = []
-    rival = None
+    actual_score = score.Score()
 
     for i in range(16):
         for j in range(16):
             piece = actual_board.matrix_pieces[i][j]
             if not isinstance(piece, pieces.EmptySquare):
-                piece.rivals.append(moves.scan_up(actual_board, piece))
-                piece.rivals.append(moves.scan_up_right(actual_board, piece))
-                piece.rivals.append(moves.scan_right(actual_board, piece))
-                piece.rivals.append(moves.scan_down_right(actual_board, piece))
-                piece.rivals.append(moves.scan_down(actual_board, piece))
-                piece.rivals.append(moves.scan_down_left(actual_board, piece))
-                piece.rivals.append(moves.scan_left(actual_board, piece))
-                piece.rivals.append(moves.scan_up_left(actual_board, piece))
+                up          = scans.scan_up(actual_board, piece)
+                up_right    = scans.scan_up_right(actual_board, piece)
+                right       = scans.scan_right(actual_board, piece)
+                down_right  = scans.scan_down_right(actual_board, piece)
+                down        = scans.scan_down(actual_board, piece)
+                down_left   = scans.scan_down_left(actual_board, piece)
+                left        = scans.scan_left(actual_board, piece)
+                up_left     = scans.scan_up_left(actual_board, piece)
 
-                for r in piece.rivals:
-                    print(piece.row, piece.col, r)
-                    try:
-                        row, col = r
-                        rival = actual_board.matrix_pieces[row][col]
-                    except Exception as e:
-                        rival = None
+                scan(actual_score, up, piece, color)
+                scan(actual_score, up_right, piece, color)
+                scan(actual_score, right, piece, color)
+                scan(actual_score, down_right, piece, color)
+                scan(actual_score, down, piece, color)
+                scan(actual_score, down_left, piece, color)
+                scan(actual_score, left, piece, color)
+                scan(actual_score, up_left, piece, color)
 
-                    if rival != None:
-                        if not isinstance(rival, pieces.EmptySquare):
-                            # If I can capture my oponent piece
-                            if moves.can_capture(piece, rival):
-                                set_score(piece, rival, color)
-                            # If I my oponent can capture my piece
-                            if moves.can_capture(rival, piece):
-                                set_score(rival, piece, color)
-                            rival = None
+    for s in actual_score.get_score():
+        print(s)
                         
 
 
@@ -50,30 +68,49 @@ board1 = (  'rrhhbbqqkkbbhhrr'
             '      Q         '
             '       b        '
             '                '
-            ' p              ' 
+            ' p        p     ' 
             'P              q'
-            '                '
-            '        Kr      '
+            '      Q   R b   '
+            '         K      '
             '                ' 
             'PPPPPPPPPPPPPPPP'
             'PPPPPPPPPPPPPPPP'
             'RRHHBBQQKKBBHHRR'
             'RRHHBBQQKKBBHHRR')
             
-color = 'white'
+color = True
 
 def play(actual_board, color):
     actual_board = board.Board(actual_board)
     print(actual_board.matrix)
     minimax(actual_board, color)
-    scores = get_score()
 
-    for s in scores:
-        print(s)
+play(board1, color)
 
-# play(board1, color)
+# actual_board = board.Board(board1)
 
-pawn = pieces.Pawn('white', 12, 1)
-rival = pieces.Pawn('black', 11, 2)
+# piece = pieces.Rook(False, 1, 1)
 
-print(pawn.valid_move(rival))
+# up          = scans.scan_up(actual_board, piece)
+# up_right    = scans.scan_up_right(actual_board, piece)
+# right       = scans.scan_right(actual_board, piece)
+# down_right  = scans.scan_down_right(actual_board, piece)
+# down        = scans.scan_down(actual_board, piece)
+# down_left   = scans.scan_down_left(actual_board, piece)
+# left        = scans.scan_left(actual_board, piece)
+# up_left     = scans.scan_up_left(actual_board, piece)
+
+# actual_score = score.Score()
+
+# scan(actual_score, up, piece, color)
+# scan(actual_score, up_right, piece, color)
+# scan(actual_score, right, piece, color)
+# scan(actual_score, down_right, piece, color)
+# scan(actual_score, down, piece, color)
+# scan(actual_score, down_left, piece, color)
+# scan(actual_score, left, piece, color)
+# scan(actual_score, up_left, piece, color)
+
+# for s in actual_score.get_score():
+#     print(s)
+
