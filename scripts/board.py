@@ -7,6 +7,22 @@ class Board():
         # Board array
         self.matrix = convert_board_matrix(board_str)
         self.matrix_pieces = np.full((16, 16), pieces.Piece('black',0,0))
+        # Black pieces
+        self.black_pawns      = []
+        self.black_horses     = []
+        self.black_bishops    = []
+        self.black_rooks      = []
+        self.black_queens     = []
+        self.black_kings      = []
+        # White pieces
+        self.white_pawns      = []
+        self.white_horses     = []
+        self.white_bishops    = []
+        self.white_rooks      = []
+        self.white_queens     = []
+        self.white_kings      = []
+        # Empty squares
+        self.empty_squares    = []
         
         # Get pieces
         self.complete_matrix_pieces()
