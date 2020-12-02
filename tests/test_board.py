@@ -1,11 +1,8 @@
-# import sys
-# import os
-# sys.path.append(os.path.abspath('../scripts'))
-
+# Made by brz
 from scripts import board
 import unittest
 
-class boardTest(unittest.TestCase):
+class TestBoard(unittest.TestCase):
     board_game = None
 
     def setUp(self):
@@ -35,6 +32,6 @@ class boardTest(unittest.TestCase):
         self.assertEqual(4, len(self.board_game.white_kings), 'Must be 4 kings at the beginning of the game')
 
 
-if __name__ == "__main__":
-     unittest.main()
+# if __name__ == "__main__":
+#      unittest.main()
             
