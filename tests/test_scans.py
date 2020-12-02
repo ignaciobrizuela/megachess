@@ -4,7 +4,7 @@ from scripts import board
 from scripts import scans
 from scripts import pieces
 
-class Testscans(unittest.TestCase):
+class TestScans(unittest.TestCase):
 
     def setUp(self):
         board_str = ('                '
@@ -131,6 +131,6 @@ class Testscans(unittest.TestCase):
         self.assertIsInstance(next(up_left), pieces.EmptySquare)
         self.assertIsInstance(next(up_left), pieces.Pawn)
 
-if __name__ == 'main':
-    unittest.main()
+# if __name__ == 'main':
+#     unittest.main()
             
