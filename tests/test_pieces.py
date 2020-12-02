@@ -5,6 +5,54 @@ from scripts import pieces
 class TestPieces(unittest.TestCase):
 
     ################################################################################################################
+    #                                            VALID PARAMETERS                                                  #
+    ################################################################################################################
+    def throw_exception_color():
+        pawn = pieces.Pawn('asdd', 0, 0)
+
+    def test_valid_color(self):
+        with self.assertRaises(Exception) as context:
+            throw_exception_color()
+            
+            self.assertTrue('Color must be True(white) or False(black)' in  context.exception)
+
+    def throw_exception_row_neg():
+        pawn = pieces.Pawn(True, -1, 0)
+
+    def test_valid_row(self):
+        with self.assertRaises(Exception) as context:
+            throw_exception_row_neg()
+            
+            self.assertTrue('Row must be an integer from 0 to 15' in  context.exception)
+
+    def throw_exception_row_higher():
+        pawn = pieces.Pawn(True, 50, 0)
+
+    def test_valid_col(self):
+        with self.assertRaises(Exception) as context:
+            thcol_exception_col_higher()
+            
+            self.assertTrue('Col must be an integer from 0 to 15' in  context.exception)
+
+    def throw_exception_col_neg():
+        pawn = pieces.Pawn(True, -1, 0)
+
+    def test_valid_col(self):
+        with self.assertRaises(Exception) as context:
+            thcol_exception_col_neg()
+            
+            self.assertTrue('Col must be an integer from 0 to 15' in  context.exception)
+
+    def throw_exception_col_higher():
+        pawn = pieces.Pawn(True, 50, 0)
+
+    def test_valid_col(self):
+        with self.assertRaises(Exception) as context:
+            thcol_exception_col_higher()
+            
+            self.assertTrue('Col must be an integer from 0 to 15' in  context.exception)
+            
+    ################################################################################################################
     #                                                  PAWN                                                        #
     ################################################################################################################
 
@@ -619,5 +667,5 @@ class TestPieces(unittest.TestCase):
         self.assertTrue(king.valid_move(empty_square8))
 
 
-if __name__ == 'main':
-    unittest.main()
+# if __name__ == 'main':
+#     unittest.main()
