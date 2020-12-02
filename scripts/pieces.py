@@ -3,12 +3,23 @@
 class Piece():
 
     def __init__(self, color, row, col):
-        self.color  = color     # True == white, False == black
-        self.row    = row
-        self.col    = col
+        if valid_color(color):
+            self.color  = color     # True == white, False == black
+        else:
+            raise Exception("Color must be True(white) or False(black)")
+
+        if valid_row(row):
+            self.row    = row
+        else:
+            raise Exception("Row must be an integer from 0 to 15")
+
+        if valid_col(col):
+            self.col    = col
+        else:
+            raise Exception("Col must be an integer from 0 to 15")
+
         self.point_move  = 0
         self.point_been_captured  = 0
-        self.rivals = []
 
 class Pawn(Piece):
     def __init__(self, color, row, col):
@@ -145,7 +156,7 @@ class King(Piece):
     def valid_move(self, element_in_square):
         n_squares_row = abs(element_in_square.row - self.row)
         n_squares_col = abs(element_in_square.col - self.col)
-
+    
         if n_squares_row <= 1 and n_squares_col <= 1:
             return True
 
@@ -159,3 +170,26 @@ class EmptySquare():
         self.row  = row
         self.col  = col
         self.color = None
+
+def valid_color(color):
+    if color == True or color == False:
+        return True
+    else:
+        return False
+
+def valid_row(row):
+    if isinstance(row, int):
+        if 0 <= row <= 15:
+            return True
+        else:
+            return False
+
+def valid_col(col):
+    if isinstance(col, int):
+        if 0 <= col <= 15:
+            return True
+        else:
+            return False
+
+
+bishop = Bishop(False, 7, 7)
