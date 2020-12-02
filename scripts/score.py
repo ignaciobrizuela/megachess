@@ -36,6 +36,3 @@ class Score():
                 
         if play['score'] != 0:
             self.play_moves.append(play)
-
-    def clear_score(self):
-        self.play_moves = []
