@@ -1,7 +1,7 @@
 # Made by brz
 import asyncio
 from scripts import board
-from scripts import moves
+from scripts import scans
 from scripts import pieces
 import numpy as np 
 
@@ -13,28 +13,28 @@ def gambit_king(board, color):
 
     for king in kings:
         if color == 'black':
-            kings[i].rivals.append(moves.rival_down(board, king))
-            kings[i].rivals.append(moves.rival_down_right(board, king))
-            kings[i].rivals.append(moves.rival_down_left(board, king))
-            kings[i].rivals.append(moves.rival_right(board, king))
-            kings[i].rivals.append(moves.rival_left(board, king))
-            kings[i].rivals.append(moves.rival_up(board, king))
-            kings[i].rivals.append(moves.rival_up_right(board, king))
-            kings[i].rivals.append(moves.rival_up_left(board, king))
+            kings[i].rivals.append(scans.rival_down(board, king))
+            kings[i].rivals.append(scans.rival_down_right(board, king))
+            kings[i].rivals.append(scans.rival_down_left(board, king))
+            kings[i].rivals.append(scans.rival_right(board, king))
+            kings[i].rivals.append(scans.rival_left(board, king))
+            kings[i].rivals.append(scans.rival_up(board, king))
+            kings[i].rivals.append(scans.rival_up_right(board, king))
+            kings[i].rivals.append(scans.rival_up_left(board, king))
 
         elif color == 'white':
-            kings[i].rivals.append(moves.rival_up(board, king))
-            kings[i].rivals.append(moves.rival_up_right(board, king))
-            kings[i].rivals.append(moves.rival_up_left(board, king))
-            kings[i].rivals.append(moves.rival_left(board, king))
-            kings[i].rivals.append(moves.rival_right(board, king))
-            kings[i].rivals.append(moves.rival_down(board, king))
-            kings[i].rivals.append(moves.rival_down_left(board, king))
-            kings[i].rivals.append(moves.rival_down_right(board, king))
+            kings[i].rivals.append(scans.rival_up(board, king))
+            kings[i].rivals.append(scans.rival_up_right(board, king))
+            kings[i].rivals.append(scans.rival_up_left(board, king))
+            kings[i].rivals.append(scans.rival_left(board, king))
+            kings[i].rivals.append(scans.rival_right(board, king))
+            kings[i].rivals.append(scans.rival_down(board, king))
+            kings[i].rivals.append(scans.rival_down_left(board, king))
+            kings[i].rivals.append(scans.rival_down_right(board, king))
 
         i += 1
 
-    return moves.can_capture(kings)
+    return scans.can_capture(kings)
 
 def gambit_rook(board, color):
     rooks   = board.black_rooks   if color == 'black' else board.white_rooks
@@ -44,20 +44,20 @@ def gambit_rook(board, color):
     
     for rook in rooks:
         if color == 'black':
-            rooks[i].rivals.append(moves.rival_down(board, rook))
-            rooks[i].rivals.append(moves.rival_up(board, rook))
-            rooks[i].rivals.append(moves.rival_left(board, rook))
-            rooks[i].rivals.append(moves.rival_right(board, rook))
+            rooks[i].rivals.append(scans.rival_down(board, rook))
+            rooks[i].rivals.append(scans.rival_up(board, rook))
+            rooks[i].rivals.append(scans.rival_left(board, rook))
+            rooks[i].rivals.append(scans.rival_right(board, rook))
 
         elif color == 'white':
-            rooks[i].rivals.append(moves.rival_up(board, rook))
-            rooks[i].rivals.append(moves.rival_down(board, rook))
-            rooks[i].rivals.append(moves.rival_right(board, rook))
-            rooks[i].rivals.append(moves.rival_left(board, rook))
+            rooks[i].rivals.append(scans.rival_up(board, rook))
+            rooks[i].rivals.append(scans.rival_down(board, rook))
+            rooks[i].rivals.append(scans.rival_right(board, rook))
+            rooks[i].rivals.append(scans.rival_left(board, rook))
 
         i += 1
 
-    return moves.can_capture(rooks)
+    return scans.can_capture(rooks)
 
 def gambit_bishop(board, color):
     bishops   = board.black_bishops if color == 'black' else board.white_bishops
@@ -67,20 +67,20 @@ def gambit_bishop(board, color):
 
     for bishop in bishops:
         if color == 'black':
-            bishops[i].rivals.append(moves.rival_down_left(board, bishop))
-            bishops[i].rivals.append(moves.rival_down_right(board, bishop))
-            bishops[i].rivals.append(moves.rival_up_left(board, bishop))
-            bishops[i].rivals.append(moves.rival_up_right(board, bishop))
+            bishops[i].rivals.append(scans.rival_down_left(board, bishop))
+            bishops[i].rivals.append(scans.rival_down_right(board, bishop))
+            bishops[i].rivals.append(scans.rival_up_left(board, bishop))
+            bishops[i].rivals.append(scans.rival_up_right(board, bishop))
         
         elif color == 'white':
-            bishops[i].rivals.append(moves.rival_up_right(board, bishop))
-            bishops[i].rivals.append(moves.rival_up_left(board, bishop))
-            bishops[i].rivals.append(moves.rival_down_right(board, bishop))
-            bishops[i].rivals.append(moves.rival_down_left(board, bishop))
+            bishops[i].rivals.append(scans.rival_up_right(board, bishop))
+            bishops[i].rivals.append(scans.rival_up_left(board, bishop))
+            bishops[i].rivals.append(scans.rival_down_right(board, bishop))
+            bishops[i].rivals.append(scans.rival_down_left(board, bishop))
 
         i += 1
 
-    return moves.can_capture(bishops)
+    return scans.can_capture(bishops)
 
 def gambit_pawn(board, color):
     pawns   = board.black_pawns   if color == 'black' else board.white_pawns
@@ -90,16 +90,16 @@ def gambit_pawn(board, color):
     
     for pawn in pawns:
         if color == 'black':
-            pawns[i].rivals.append(moves.rival_down_left(board, pawn))
-            pawns[i].rivals.append(moves.rival_down_right(board, pawn))
+            pawns[i].rivals.append(scans.rival_down_left(board, pawn))
+            pawns[i].rivals.append(scans.rival_down_right(board, pawn))
 
         elif color == 'white':
-            pawns[i].rivals.append(moves.rival_up_right(board, pawn))
-            pawns[i].rivals.append(moves.rival_up_left(board, pawn))
+            pawns[i].rivals.append(scans.rival_up_right(board, pawn))
+            pawns[i].rivals.append(scans.rival_up_left(board, pawn))
 
         i += 1
 
-    return moves.can_capture(pawns)
+    return scans.can_capture(pawns)
 
 
 
@@ -113,29 +113,29 @@ def gambit_queen(board, color):
     
     for queen in queens:
         if color == 'black':
-            queens[i].rivals.append(moves.rival_down(board, queen))
-            queens[i].rivals.append(moves.rival_down_right(board, queen))
-            queens[i].rivals.append(moves.rival_down_left(board, queen))
-            queens[i].rivals.append(moves.rival_right(board, queen))
-            queens[i].rivals.append(moves.rival_left(board, queen))
-            queens[i].rivals.append(moves.rival_up(board, queen))
-            queens[i].rivals.append(moves.rival_up_right(board, queen))
-            queens[i].rivals.append(moves.rival_up_left(board, queen))
+            queens[i].rivals.append(scans.rival_down(board, queen))
+            queens[i].rivals.append(scans.rival_down_right(board, queen))
+            queens[i].rivals.append(scans.rival_down_left(board, queen))
+            queens[i].rivals.append(scans.rival_right(board, queen))
+            queens[i].rivals.append(scans.rival_left(board, queen))
+            queens[i].rivals.append(scans.rival_up(board, queen))
+            queens[i].rivals.append(scans.rival_up_right(board, queen))
+            queens[i].rivals.append(scans.rival_up_left(board, queen))
 
         elif color == 'white':
-            queens[i].rivals.append(moves.rival_up(board, queen))
-            queens[i].rivals.append(moves.rival_up_right(board, queen))
-            queens[i].rivals.append(moves.rival_up_left(board, queen))
-            queens[i].rivals.append(moves.rival_left(board, queen))
-            queens[i].rivals.append(moves.rival_right(board, queen))
-            queens[i].rivals.append(moves.rival_down(board, queen))
-            queens[i].rivals.append(moves.rival_down_left(board, queen))
-            queens[i].rivals.append(moves.rival_down_right(board, queen))
+            queens[i].rivals.append(scans.rival_up(board, queen))
+            queens[i].rivals.append(scans.rival_up_right(board, queen))
+            queens[i].rivals.append(scans.rival_up_left(board, queen))
+            queens[i].rivals.append(scans.rival_left(board, queen))
+            queens[i].rivals.append(scans.rival_right(board, queen))
+            queens[i].rivals.append(scans.rival_down(board, queen))
+            queens[i].rivals.append(scans.rival_down_left(board, queen))
+            queens[i].rivals.append(scans.rival_down_right(board, queen))
         
         i += 1
         
 
-    return moves.can_capture(queens)
+    return scans.can_capture(queens)
 
     
 def crown_a_pawn(board, color):
@@ -162,7 +162,7 @@ def play(actual_board, color):
     writer.write('\n')
 
     print(actual_board.matrix)
-    # Check if there is any queen abble to moves.can_capture pieces
+    # Check if there is any queen abble to scans.can_capture pieces
     try:
         from_row, from_col, to_row, to_col = gambit_king(actual_board, color)
     except Exception as e:
