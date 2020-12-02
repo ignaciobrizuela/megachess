@@ -16,20 +16,23 @@ class TestBoard(unittest.TestCase):
         self.assertEqual((16, 16), self.board_game.matrix.shape, "Must be a 16x16 board")
 
     def test_pieces_quantity(self):
-        # Black pieces
-        self.assertEqual(32, len(self.board_game.black_pawns), 'Must be 32 pawns at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.black_horses), 'Must be 8 horses at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.black_bishops), 'Must be 8 bishops at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.black_rooks), 'Must be 8 rooks at the beginning of the game')
-        self.assertEqual(4, len(self.board_game.black_queens), 'Must be 4 queens at the beginning of the game')
-        self.assertEqual(4, len(self.board_game.black_kings), 'Must be 4 kings at the beginning of the game')
+        white_pieces = []
+        black_pieces = []
+        empty_pieces = []
+
+        for row_pieces in self.board_game.matrix_pieces:
+            for piece in row_pieces:
+                if piece.color == True:
+                    white_pieces.append(piece)
+                elif piece.color == False:
+                    black_pieces.append(piece)
+                else:
+                    empty_pieces.append(piece)
+
         # White pieces
-        self.assertEqual(32, len(self.board_game.white_pawns), 'Must be 32 pawns at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.white_horses), 'Must be 8 horses at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.white_bishops), 'Must be 8 bishops at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.white_rooks), 'Must be 8 rooks at the beginning of the game')
-        self.assertEqual(4, len(self.board_game.white_queens), 'Must be 4 queens at the beginning of the game')
-        self.assertEqual(4, len(self.board_game.white_kings), 'Must be 4 kings at the beginning of the game')
+        self.assertEqual(64, len(white_pieces))
+        self.assertEqual(64, len(black_pieces))
+        self.assertEqual(128, len(empty_pieces))
 
 
 # if __name__ == "__main__":
