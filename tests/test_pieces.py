@@ -542,9 +542,9 @@ class TestPieces(unittest.TestCase):
         rival3 = pieces.Pawn(True, 8, 9)     # right
         rival4 = pieces.Pawn(True, 9, 9)     # down_right
         rival5 = pieces.Pawn(True, 9, 8)    # down
-        rival6 = pieces.Pawn(True, 9, 6)    # down_left
-        rival7 = pieces.Pawn(True, 8, 6)     # left
-        rival8 = pieces.Pawn(True, 7, 6)     # up_left
+        rival6 = pieces.Pawn(True, 9, 7)    # down_left
+        rival7 = pieces.Pawn(True, 8, 7)     # left
+        rival8 = pieces.Pawn(True, 7, 7)     # up_left
 
         self.assertTrue(king.valid_move(rival1))
         self.assertTrue(king.valid_move(rival2))
@@ -563,9 +563,9 @@ class TestPieces(unittest.TestCase):
         empty_square3 = pieces.EmptySquare(8, 9)     # right
         empty_square4 = pieces.EmptySquare(9, 9)     # down_right
         empty_square5 = pieces.EmptySquare(9, 8)    # down
-        empty_square6 = pieces.EmptySquare(9, 6)    # down_left
-        empty_square7 = pieces.EmptySquare(8, 6)     # left
-        empty_square8 = pieces.EmptySquare(7, 6)     # up_left
+        empty_square6 = pieces.EmptySquare(9, 7)    # down_left
+        empty_square7 = pieces.EmptySquare(8, 7)     # left
+        empty_square8 = pieces.EmptySquare(7, 7)     # up_left
 
         self.assertTrue(king.valid_move(empty_square1))
         self.assertTrue(king.valid_move(empty_square2))
@@ -584,9 +584,9 @@ class TestPieces(unittest.TestCase):
         rival3 = pieces.Pawn(False, 8, 9)     # right
         rival4 = pieces.Pawn(False, 9, 9)     # down_right
         rival5 = pieces.Pawn(False, 9, 8)    # down
-        rival6 = pieces.Pawn(False, 9, 6)    # down_left
-        rival7 = pieces.Pawn(False, 8, 6)     # left
-        rival8 = pieces.Pawn(False, 7, 6)     # up_left
+        rival6 = pieces.Pawn(False, 9, 7)    # down_left
+        rival7 = pieces.Pawn(False, 8, 7)     # left
+        rival8 = pieces.Pawn(False, 7, 7)     # up_left
 
         self.assertTrue(king.valid_move(rival1))
         self.assertTrue(king.valid_move(rival2))
@@ -605,9 +605,9 @@ class TestPieces(unittest.TestCase):
         empty_square3 = pieces.EmptySquare(8, 9)     # right
         empty_square4 = pieces.EmptySquare(9, 9)     # down_right
         empty_square5 = pieces.EmptySquare(9, 8)    # down
-        empty_square6 = pieces.EmptySquare(9, 6)    # down_left
-        empty_square7 = pieces.EmptySquare(8, 6)     # left
-        empty_square8 = pieces.EmptySquare(7, 6)     # up_left
+        empty_square6 = pieces.EmptySquare(9, 7)    # down_left
+        empty_square7 = pieces.EmptySquare(8, 7)     # left
+        empty_square8 = pieces.EmptySquare(7, 7)     # up_left
 
         self.assertTrue(king.valid_move(empty_square1))
         self.assertTrue(king.valid_move(empty_square2))
