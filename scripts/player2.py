@@ -17,33 +17,32 @@ def scan(actual_score, scan_function, piece, color):
         except Exception as e:
             break
         
-        
+        # If the destiny is an empty square, keep looking
         if isinstance(result, pieces.EmptySquare):
             if piece.valid_move(result):
                 actual_score.set_score(piece, result, color)
 
+        # If there is a piece in the square ask which one it is.
         else:
+            # If it is a horse, look at every L move.
             if isinstance(piece, pieces.Horse):
                 if result.color != piece.color:
                     if piece.valid_move(result):
                         actual_score.set_score(piece, result, color)
-
+            # If there is a rival piece set_score and stop
             elif result.color != piece.color:
                 if piece.valid_move(result):
                     actual_score.set_score(piece, result, color)
                     stop = True
+                # If it is a team piece do nothing and stop
                 else:
                     stop = True
-
+            # If there is a team piece do nothing and stop
             else:
-                if piece.valid_move(result):
-                    actual_score.set_score(piece, result, color)
-                    stop = True
-                else:
-                    stop = True
+                stop = True
 
 
-def evaluate_better_move(actual_board, actual_score, color):
+def evaluate_moves(actual_board, actual_score, color):
     move_score = ([])
     next_score = score.Score()
 
@@ -57,10 +56,13 @@ def evaluate_better_move(actual_board, actual_score, color):
             max_move_now, _ = minimax(actual_score)
             max_move, min_move = minimax(next_score)
             points = s['score'] * 2 + max_move['score'] + min_move['score']
-            move_score.append([s, points])
+            move_score.append([s, round(points, 2)])
 
     return move_score
 
+
+def best_move(moves):
+    return max(moves, key=operator.itemgetter(1))
 
 def scan_posible_moves(actual_board, color):
     new_score = score.Score()
@@ -114,14 +116,11 @@ def play(actual_board, color):
 
     scores = scan_posible_moves(actual_board, color)
 
-    max_move, min_move = minimax(scores)
+    moves = evaluate_moves(actual_board, scores, color)
 
-    moves = evaluate_better_move(actual_board, scores, color)
-
-    better_move = max(moves, key=operator.itemgetter(1))
-    move = better_move[0]
+    b_move = best_move(moves)
+    move = b_move[0]
     print(move)
-
 
     writer.write(str(move))
     writer.write('\n')
