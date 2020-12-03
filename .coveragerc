@@ -1,1 +1,5 @@
-[run] omit = '*/home/**'
+[run]
+omit = */venv/*
+
+[report]
+omit = */venv/*
