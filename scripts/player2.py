@@ -120,7 +120,7 @@ def play(actual_board, color):
 
     b_move = best_move(moves)
     move = b_move[0]
-    print(move)
+    # print(move)
 
     writer.write(str(move))
     writer.write('\n')
