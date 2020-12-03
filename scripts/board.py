@@ -61,9 +61,6 @@ class Board():
                     empty_square = pieces.EmptySquare(row, col)
                     self.matrix_pieces[row][col] = empty_square
 
-    def get_piece(self, row, col):
-        return self.matrix_pieces[row][col]
-
 
 def convert_board_matrix(board_str):
     # Board splitted in rows and columns, easy to find pieces
