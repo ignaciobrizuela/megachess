@@ -1,1 +1,1 @@
-omit= */env/*
+[run] omit = */site-packages/* */
