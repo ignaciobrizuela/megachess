@@ -1,2 +1,3 @@
 [run]
-source = ~/Documents/megachess
+source = 
+    megachess
