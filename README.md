@@ -139,11 +139,11 @@ This function receives a destiny piece and returns True if the main piece can ju
 E.g:
 In this position, it is white turn.
 
-![pawn_poss](https://user-images.githubusercontent.com/40641262/100926594-753a8000-34c2-11eb-974c-69cd31bc326b.png)
+![pawn_poss](https://user-images.githubusercontent.com/40641262/101071013-cdcd5400-357a-11eb-83a0-3bc1a5c7ba0e.png)
 
 The posible moves to do for the pawn are: capture one of the pawn in its diagonal or jump foward. The rest of the movements are invalid for the pawn.
 
-![pawn_poss_green](https://user-images.githubusercontent.com/40641262/100926757-b03cb380-34c2-11eb-9af9-156967e09950.png)
+![pawn_poss_green](https://user-images.githubusercontent.com/40641262/101071082-e2115100-357a-11eb-9470-c4e3dcba038b.png)
 
 Asume that the white pawn is in row=8, col=8
 
