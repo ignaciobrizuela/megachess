@@ -138,9 +138,11 @@ This function receives a destiny piece and returns True if the main piece can ju
 
 E.g:
 In this position, it is white turn.
+
 ![pawn_poss](https://user-images.githubusercontent.com/40641262/100926594-753a8000-34c2-11eb-974c-69cd31bc326b.png)
 
 The posible moves to do for the pawn are: capture one of the pawn in its diagonal or jump foward. The rest of the movements are invalid for the pawn.
+
 ![pawn_poss_green](https://user-images.githubusercontent.com/40641262/100926757-b03cb380-34c2-11eb-9af9-156967e09950.png)
 
 Asume that the white pawn is in row=8, col=8
@@ -164,12 +166,15 @@ The score is calculated based on the potential of the movement. For example, mov
 
 ## Strategy
 My strategy is quite simple.
+
 ![player2_flow](https://user-images.githubusercontent.com/40641262/101046182-98673d00-355f-11eb-9141-010179a3a027.png) 
 
 After to create a board object, the AI player scan for all posible moves for both color. It depends on what color I am, my movements will be positives and the rival movements negatives.
 
 E.g:
 Given this board:
+_"(This is a hypothetical case, keep in mind that pawns can never be in rows after the center):"_
+
 ![board_case](https://user-images.githubusercontent.com/40641262/101053216-44ac2200-3566-11eb-9344-b35eced56f9c.png)
 
 The posible moves are:
@@ -188,18 +193,19 @@ The posible moves are:
 {'from_row': 2, 'from_col': 14, 'to_row': 3, 'to_col': 13, 'score': 5},
 {'from_row': 2, 'from_col': 14, 'to_row': 1, 'to_col': 13, 'score': 5})         # king moves
 ```
-The most dangerous move that black pieces have is to capture white_pawn. In this moment, to make a move foward seems to be a good move, but there is necessary to check how the board will be after each possible move for white pieces.
+The most dangerous move that black pieces have is to capture white_pawn. In this moment, to make the pawn move foward seems to be a good move, but there is necessary to check how the board will be after each possible move for white pieces.
 
 Every move has a different score and its scores depend on the action made.
 
 The most important thing is to create a Queen army, so the pawns will try to crown if they can. Also, it is important to defend valuable pieces. Even though a queen captured gives 50 points, they are extremely dangerous, so it is necessary to delete them if there is any possibility.
 
-The final score is a sum of the movement score that the piece makes now plus the best move it will have after the move plus the best move the rival will have.
+The final score is a sum of the movement score that the piece makes now, plus the best move it will have after the move, plus the best move the rival will have.
+
 ```
 final_score = best_move_now * 2 + best_move_after + best_move_rival_after
 ```
 
-Multiple best_move_now by 2 highlight the move, because if I have a chance to make a good move now I could lose it if later.
+Multiplying best_move_now by 2 it highlights the move, because if I have a chance to make a good move now I could lose it if later.
 
 Because of that, the result of call _evaluate_moves_ is:
 ```
