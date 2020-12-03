@@ -27,21 +27,6 @@ class Pawn(Piece):
         self.point_move = 10
         self.point_been_captured = 100
 
-    def make_a_jump(self):
-        if self.color == False:
-            if self.row == 3:
-                return 2
-            else:
-                return 1
-
-        elif self.color == True:
-            if self.row == 12:
-                return -2
-            else:
-                return -1
-        else:
-            return None
-
     def valid_move(self, element_in_square):
         n_squares_row = element_in_square.row - self.row
         n_squares_col = abs(element_in_square.col - self.col)
