@@ -1,3 +1,6 @@
+[![Coverage Status](https://coveralls.io/repos/github/ignaciobrizuela/megachess/badge.svg?branch=new_strategy)](https://coveralls.io/github/ignaciobrizuela/megachess?branch=new_strategy)
+[![Coverage Status](https://coveralls.io/repos/github/ignaciobrizuela/megachess/badge.svg?branch=new_strategy)](https://coveralls.io/github/ignaciobrizuela/megachess?branch=new_strategy)
+
 # Megachess 
 _This is a challenge for EDA Talen Show, **EventBrite**._
 The task is to build an AI which can play **Megachess**.
