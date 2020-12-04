@@ -1,10 +1,14 @@
 [run]
 source =
-    */scripts/*
+    board.py
+    pieces.py
+    player2.py
+    scans.py
+    score.py
 omit =
     env/*
     */test*
-    
+
 [report]
 exclude_lines =
     pragma: no cover
