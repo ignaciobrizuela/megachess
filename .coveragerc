@@ -1,10 +1,6 @@
 [run]
 source =
-    board.py
-    pieces.py
-    player2.py
-    scans.py
-    score.py
+    scripts
 omit =
     env/*
     */test*
