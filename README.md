@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/ignaciobrizuela/megachess/badge.svg?branch=new_strategy)](https://coveralls.io/github/ignaciobrizuela/megachess?branch=new_strategy)
+[![Build Status](https://travis-ci.com/ignaciobrizuela/megachess.svg?branch=main)](https://travis-ci.com/ignaciobrizuela/megachess)
 [![Coverage Status](https://coveralls.io/repos/github/ignaciobrizuela/megachess/badge.svg?branch=new_strategy)](https://coveralls.io/github/ignaciobrizuela/megachess?branch=new_strategy)
 
 # Megachess 
