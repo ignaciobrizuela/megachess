@@ -2,7 +2,7 @@
 source =
     scripts
 omit =
-    scripts.client.py
+    scripts/client.py
     env/*
     */test*
 
