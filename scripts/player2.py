@@ -101,17 +101,22 @@ def minimax(actual_score):
 
     return  actual_score.play_moves[play_max_score], actual_score.play_moves[play_min_score]
                         
-
+# def show_board(board_pretty):
+#     for row in range(0, 256, 16):
+#         print(board_pretty[row:row+16])
 
 writer = open('game.txt', 'w')
 
-def play(actual_board, color):
+def play(board_str, color):
 
     from_row, from_col, to_row, to_col = (0, 0, 0, 0)
-    actual_board = board.Board(actual_board)
+
+    board_pretty = board.transform_pretty_pieces(board_str)
+    actual_board = board.Board(board_pretty)
     writer.write(str(actual_board.matrix))
     writer.write('\n')
 
+    # show_board(board_pretty)
     print(actual_board.matrix)
 
     scores = scan_posible_moves(actual_board, color)
@@ -120,7 +125,7 @@ def play(actual_board, color):
 
     b_move = best_move(moves)
     move = b_move[0]
-    # print(move)
+    print(move)
 
     writer.write(str(move))
     writer.write('\n')
