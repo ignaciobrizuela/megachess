@@ -4,7 +4,9 @@
 # Megachess 
 _This is a challenge for EDA Talen Show, **EventBrite**._
 The task is to build an AI which can play **Megachess**.
-This is the second strategy that I'd created.
+This is the Magnus Carlsen (3.0) strategy that I'd created.
+
+![carlsen](https://user-images.githubusercontent.com/40641262/101367293-c3fe6600-3884-11eb-9aa5-f09727ee39c5.jpg)
 
 ## About me
 I'm Ignacio Brizuela Electronic Engineer and also a programmer. I've been programming for a couple of years as a self-oriented person, now I'm ready to take a challenge that lead me to another level.
