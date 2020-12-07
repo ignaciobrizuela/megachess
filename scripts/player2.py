@@ -120,6 +120,8 @@ def play(board_str, color):
     print(actual_board.matrix)
 
     scores = scan_posible_moves(actual_board, color)
+    # for s in scores.play_moves:
+    #     print(s)
 
     moves = evaluate_moves(actual_board, scores, color)
 

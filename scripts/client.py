@@ -38,7 +38,7 @@ async def start(auth_token):
                     pass
                 if data['event'] == 'ask_challenge':
                     # This function accepts any challenge
-                    if data['data']['username'] == 'brzBot' or 'brz':
+                    if data['data']['username'] == 'brzBot':
                         await send(
                             websocket,
                             'accept_challenge',
