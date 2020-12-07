@@ -109,8 +109,7 @@ class TestPieces(unittest.TestCase):
         self.assertFalse(pawn.valid_move(empty_square5))
         self.assertFalse(pawn.valid_move(empty_square6))
         self.assertFalse(pawn.valid_move(empty_square7))
-
-    
+  
     def test_whitepawn_valid_move_jump(self):
         pawn = pieces.Pawn(True, 12, 1)
 
@@ -173,10 +172,10 @@ class TestPieces(unittest.TestCase):
     def test_blackhorse_valid_move_capture(self):
         horse = pieces.Horse(False, 8, 8)
 
-        rival1 = pieces.Pawn(True, 6, 9)     # up_right
-        rival2 = pieces.Pawn(True, 10, 9)    # down_right
-        rival3 = pieces.Pawn(True, 10, 7)    # down_left
-        rival4 = pieces.Pawn(True, 6, 7)     # up_left
+        rival1 = pieces.Pawn(True, 6, 9)     # L up_right
+        rival2 = pieces.Pawn(True, 10, 9)    # L down_right
+        rival3 = pieces.Pawn(True, 10, 7)    # L down_left
+        rival4 = pieces.Pawn(True, 6, 7)     # L up_left
 
         self.assertTrue(horse.valid_move(rival1))
         self.assertTrue(horse.valid_move(rival2))
@@ -187,22 +186,30 @@ class TestPieces(unittest.TestCase):
         horse = pieces.Horse(False, 8, 8)
 
         rival1 = pieces.Pawn(True, 7, 8)     # up
-        rival2 = pieces.Pawn(True, 8, 9)     # right
-        rival3 = pieces.Pawn(True, 9, 8)     # down
-        rival4 = pieces.Pawn(True, 8, 7)     # left
+        rival2 = pieces.Pawn(True, 7, 9)     # up_right
+        rival3 = pieces.Pawn(True, 8, 9)     # right
+        rival4 = pieces.Pawn(True, 9, 9)     # dow_right
+        rival5 = pieces.Pawn(True, 9, 8)     # down
+        rival6 = pieces.Pawn(True, 9, 7)     # down_left
+        rival7 = pieces.Pawn(True, 8, 7)     # left
+        rival8 = pieces.Pawn(True, 6, 6)     # up_left
 
         self.assertFalse(horse.valid_move(rival1))
         self.assertFalse(horse.valid_move(rival2))
         self.assertFalse(horse.valid_move(rival3))
         self.assertFalse(horse.valid_move(rival4))
+        self.assertFalse(horse.valid_move(rival5))
+        self.assertFalse(horse.valid_move(rival6))
+        self.assertFalse(horse.valid_move(rival7))
+        self.assertFalse(horse.valid_move(rival8))
 
     def test_blackhorse_valid_move_jump(self):
         horse = pieces.Horse(False, 8, 8)
 
-        empty_square1 = pieces.EmptySquare(6, 9)     # up_right
-        empty_square2 = pieces.EmptySquare(10, 9)    # down_right
-        empty_square3 = pieces.EmptySquare(10, 7)    # down_left
-        empty_square4 = pieces.EmptySquare(6, 7)     # up_left
+        empty_square1 = pieces.EmptySquare(6, 9)     # L up_right
+        empty_square2 = pieces.EmptySquare(10, 9)    # L down_right
+        empty_square3 = pieces.EmptySquare(10, 7)    # L down_left
+        empty_square4 = pieces.EmptySquare(6, 7)     # L up_left
 
         self.assertTrue(horse.valid_move(empty_square1))
         self.assertTrue(horse.valid_move(empty_square2))
@@ -213,22 +220,30 @@ class TestPieces(unittest.TestCase):
         horse = pieces.Horse(False, 8, 8)
 
         empty_square1 = pieces.EmptySquare(7, 8)     # up
-        empty_square2 = pieces.EmptySquare(8, 9)     # right
-        empty_square3 = pieces.EmptySquare(9, 8)     # down
-        empty_square4 = pieces.EmptySquare(8, 7)     # left
+        empty_square2 = pieces.EmptySquare(7, 9)     # up_right
+        empty_square3 = pieces.EmptySquare(8, 9)     # right
+        empty_square4 = pieces.EmptySquare(9, 9)     # dow_right
+        empty_square5 = pieces.EmptySquare(9, 8)     # down
+        empty_square6 = pieces.EmptySquare(9, 7)     # down_left
+        empty_square7 = pieces.EmptySquare(8, 7)     # left
+        empty_square8 = pieces.EmptySquare(6, 6)     # up_left
 
         self.assertFalse(horse.valid_move(empty_square1))
         self.assertFalse(horse.valid_move(empty_square2))
         self.assertFalse(horse.valid_move(empty_square3))
         self.assertFalse(horse.valid_move(empty_square4))
+        self.assertFalse(horse.valid_move(empty_square5))
+        self.assertFalse(horse.valid_move(empty_square6))
+        self.assertFalse(horse.valid_move(empty_square7))
+        self.assertFalse(horse.valid_move(empty_square8))
 
     def test_whitehorse_valid_move_capture(self):
         horse = pieces.Horse(True, 8, 8)
 
-        rival1 = pieces.Pawn(False, 6, 9)     # up_right
-        rival2 = pieces.Pawn(False, 10, 9)    # down_right
-        rival3 = pieces.Pawn(False, 10, 7)    # down_left
-        rival4 = pieces.Pawn(False, 6, 7)     # up_left
+        rival1 = pieces.Pawn(False, 6, 9)     # L up_right
+        rival2 = pieces.Pawn(False, 10, 9)    # L down_right
+        rival3 = pieces.Pawn(False, 10, 7)    # L down_left
+        rival4 = pieces.Pawn(False, 6, 7)     # L up_left
 
         self.assertTrue(horse.valid_move(rival1))
         self.assertTrue(horse.valid_move(rival2))
@@ -239,22 +254,30 @@ class TestPieces(unittest.TestCase):
         horse = pieces.Horse(True, 8, 8)
 
         rival1 = pieces.Pawn(False, 7, 8)     # up
-        rival2 = pieces.Pawn(False, 8, 9)     # right
-        rival3 = pieces.Pawn(False, 9, 8)     # down
-        rival4 = pieces.Pawn(False, 8, 7)     # left
+        rival2 = pieces.Pawn(False, 7, 9)     # up_right
+        rival3 = pieces.Pawn(False, 8, 9)     # right
+        rival4 = pieces.Pawn(False, 9, 9)     # dow_right
+        rival5 = pieces.Pawn(False, 9, 8)     # down
+        rival6 = pieces.Pawn(False, 9, 7)     # down_left
+        rival7 = pieces.Pawn(False, 8, 7)     # left
+        rival8 = pieces.Pawn(False, 6, 6)     # up_left
 
         self.assertFalse(horse.valid_move(rival1))
         self.assertFalse(horse.valid_move(rival2))
         self.assertFalse(horse.valid_move(rival3))
         self.assertFalse(horse.valid_move(rival4))
+        self.assertFalse(horse.valid_move(rival5))
+        self.assertFalse(horse.valid_move(rival6))
+        self.assertFalse(horse.valid_move(rival7))
+        self.assertFalse(horse.valid_move(rival8))
 
     def test_whitehorse_valid_move_jump(self):
         horse = pieces.Horse(True, 8, 8)
 
-        empty_square1 = pieces.EmptySquare(6, 9)     # up_right
-        empty_square2 = pieces.EmptySquare(10, 9)    # down_right
-        empty_square3 = pieces.EmptySquare(10, 7)    # down_left
-        empty_square4 = pieces.EmptySquare(6, 7)     # up_left
+        empty_square1 = pieces.EmptySquare(6, 9)     # L up_right
+        empty_square2 = pieces.EmptySquare(10, 9)    # L down_right
+        empty_square3 = pieces.EmptySquare(10, 7)    # L down_left
+        empty_square4 = pieces.EmptySquare(6, 7)     # L up_left
 
         self.assertTrue(horse.valid_move(empty_square1))
         self.assertTrue(horse.valid_move(empty_square2))
@@ -265,14 +288,22 @@ class TestPieces(unittest.TestCase):
         horse = pieces.Horse(True, 8, 8)
 
         empty_square1 = pieces.EmptySquare(7, 8)     # up
-        empty_square2 = pieces.EmptySquare(8, 9)     # right
-        empty_square3 = pieces.EmptySquare(9, 8)     # down
-        empty_square4 = pieces.EmptySquare(8, 7)     # left
+        empty_square2 = pieces.EmptySquare(7, 9)     # up_right
+        empty_square3 = pieces.EmptySquare(8, 9)     # right
+        empty_square4 = pieces.EmptySquare(9, 9)     # dow_right
+        empty_square5 = pieces.EmptySquare(9, 8)     # down
+        empty_square6 = pieces.EmptySquare(9, 7)     # down_left
+        empty_square7 = pieces.EmptySquare(8, 7)     # left
+        empty_square8 = pieces.EmptySquare(6, 6)     # up_left
 
         self.assertFalse(horse.valid_move(empty_square1))
         self.assertFalse(horse.valid_move(empty_square2))
         self.assertFalse(horse.valid_move(empty_square3))
         self.assertFalse(horse.valid_move(empty_square4))
+        self.assertFalse(horse.valid_move(empty_square5))
+        self.assertFalse(horse.valid_move(empty_square6))
+        self.assertFalse(horse.valid_move(empty_square7))
+        self.assertFalse(horse.valid_move(empty_square8))
 
     ################################################################################################################
     #                                                  BISHOP                                                      #
@@ -514,6 +545,20 @@ class TestPieces(unittest.TestCase):
         self.assertTrue(queen.valid_move(rival6))
         self.assertTrue(queen.valid_move(rival7))
         self.assertTrue(queen.valid_move(rival8))
+
+    def test_blackqueen_invalid_move_capture(self):
+        queen = pieces.Queen(False, 8, 8)
+
+        rival1 = pieces.Pawn(True, 6, 9)     
+        rival2 = pieces.Pawn(True, 10, 9)    
+        rival3 = pieces.Pawn(True, 10, 7)    
+        rival4 = pieces.Pawn(True, 6, 7)  
+
+        self.assertFalse(queen.valid_move(rival1))
+        self.assertFalse(queen.valid_move(rival2))
+        self.assertFalse(queen.valid_move(rival3))
+        self.assertFalse(queen.valid_move(rival4))
+
     
     def test_blackqueen_valid_move_jump(self):
         queen = pieces.Queen(False, 8, 8)
@@ -536,6 +581,19 @@ class TestPieces(unittest.TestCase):
         self.assertTrue(queen.valid_move(empty_square7))
         self.assertTrue(queen.valid_move(empty_square8))
 
+    def test_blackqueen_invalid_move_jump(self):
+        queen = pieces.Queen(False, 8, 8)
+
+        empty_square1 = pieces.EmptySquare(6, 9)     
+        empty_square2 = pieces.EmptySquare(10, 9)    
+        empty_square3 = pieces.EmptySquare(10, 7)    
+        empty_square4 = pieces.EmptySquare(6, 7)  
+
+        self.assertFalse(queen.valid_move(empty_square1))
+        self.assertFalse(queen.valid_move(empty_square2))
+        self.assertFalse(queen.valid_move(empty_square3))
+        self.assertFalse(queen.valid_move(empty_square4))
+
     def test_whitekqueen_valid_move_capture(self):
         queen = pieces.Queen(True, 8, 8)
 
@@ -557,6 +615,19 @@ class TestPieces(unittest.TestCase):
         self.assertTrue(queen.valid_move(rival7))
         self.assertTrue(queen.valid_move(rival8))
 
+    def test_whitequeen_invalid_move_capture(self):
+        queen = pieces.Queen(True, 8, 8)
+
+        rival1 = pieces.Pawn(False, 6, 9)     
+        rival2 = pieces.Pawn(False, 10, 9)    
+        rival3 = pieces.Pawn(False, 10, 7)    
+        rival4 = pieces.Pawn(False, 6, 7)  
+
+        self.assertFalse(queen.valid_move(rival1))
+        self.assertFalse(queen.valid_move(rival2))
+        self.assertFalse(queen.valid_move(rival3))
+        self.assertFalse(queen.valid_move(rival4))
+
     def test_whitekqueen_valid_move_jump(self):
         queen = pieces.Queen(True, 8, 8)
 
@@ -577,6 +648,19 @@ class TestPieces(unittest.TestCase):
         self.assertTrue(queen.valid_move(empty_square6))
         self.assertTrue(queen.valid_move(empty_square7))
         self.assertTrue(queen.valid_move(empty_square8))    
+    
+    def test_whitequeen_invalid_move_jump(self):
+        queen = pieces.Queen(True, 8, 8)
+
+        empty_square1 = pieces.EmptySquare(6, 9)     
+        empty_square2 = pieces.EmptySquare(10, 9)    
+        empty_square3 = pieces.EmptySquare(10, 7)    
+        empty_square4 = pieces.EmptySquare(6, 7)  
+
+        self.assertFalse(queen.valid_move(empty_square1))
+        self.assertFalse(queen.valid_move(empty_square2))
+        self.assertFalse(queen.valid_move(empty_square3))
+        self.assertFalse(queen.valid_move(empty_square4))
 
     ################################################################################################################
     #                                                  KING                                                       #
@@ -602,6 +686,27 @@ class TestPieces(unittest.TestCase):
         self.assertTrue(king.valid_move(rival6))
         self.assertTrue(king.valid_move(rival7))
         self.assertTrue(king.valid_move(rival8))
+
+    def test_blackking_invalid_move_capture(self):
+        king = pieces.King(False, 8, 8)
+
+        rival1 = pieces.Pawn(True, 5, 8)     # up
+        rival2 = pieces.Pawn(True, 6, 10)    # up_right
+        rival3 = pieces.Pawn(True, 8, 10)    # right
+        rival4 = pieces.Pawn(True, 11, 11)   # down_right
+        rival5 = pieces.Pawn(True, 12, 8)    # down
+        rival6 = pieces.Pawn(True, 11, 5)    # down_left
+        rival7 = pieces.Pawn(True, 8, 5)     # left
+        rival8 = pieces.Pawn(True, 6, 6)     # up_left
+
+        self.assertFalse(king.valid_move(rival1))
+        self.assertFalse(king.valid_move(rival2))
+        self.assertFalse(king.valid_move(rival3))
+        self.assertFalse(king.valid_move(rival4))
+        self.assertFalse(king.valid_move(rival5))
+        self.assertFalse(king.valid_move(rival6))
+        self.assertFalse(king.valid_move(rival7))
+        self.assertFalse(king.valid_move(rival8))
     
     def test_blackking_valid_move_jump(self):
         king = pieces.King(False, 8, 8)
@@ -624,6 +729,27 @@ class TestPieces(unittest.TestCase):
         self.assertTrue(king.valid_move(empty_square7))
         self.assertTrue(king.valid_move(empty_square8))
 
+    def test_blackking_invalid_move_jump(self):
+        king = pieces.King(False, 8, 8)
+
+        empty_square1 = pieces.EmptySquare(5, 8)     # up
+        empty_square2 = pieces.EmptySquare(6, 10)    # up_right
+        empty_square3 = pieces.EmptySquare(8, 10)    # right
+        empty_square4 = pieces.EmptySquare(11, 11)   # down_right
+        empty_square5 = pieces.EmptySquare(12, 8)    # down
+        empty_square6 = pieces.EmptySquare(11, 5)    # down_left
+        empty_square7 = pieces.EmptySquare(8, 5)     # left
+        empty_square8 = pieces.EmptySquare(6, 6)     # up_left
+
+        self.assertFalse(king.valid_move(empty_square1))
+        self.assertFalse(king.valid_move(empty_square2))
+        self.assertFalse(king.valid_move(empty_square3))
+        self.assertFalse(king.valid_move(empty_square4))
+        self.assertFalse(king.valid_move(empty_square5))
+        self.assertFalse(king.valid_move(empty_square6))
+        self.assertFalse(king.valid_move(empty_square7))
+        self.assertFalse(king.valid_move(empty_square8))
+
     def test_whitekking_valid_move_capture(self):
         king = pieces.King(True, 8, 8)
 
@@ -644,6 +770,27 @@ class TestPieces(unittest.TestCase):
         self.assertTrue(king.valid_move(rival6))
         self.assertTrue(king.valid_move(rival7))
         self.assertTrue(king.valid_move(rival8))
+
+    def test_whitekking_invalid_move_capture(self):
+        king = pieces.King(True, 8, 8)
+
+        rival1 = pieces.Pawn(False, 5, 8)     # up
+        rival2 = pieces.Pawn(False, 6, 10)     # up_right
+        rival3 = pieces.Pawn(False, 8, 10)     # right
+        rival4 = pieces.Pawn(False, 11, 11)     # down_right
+        rival5 = pieces.Pawn(False, 12, 8)    # down
+        rival6 = pieces.Pawn(False, 11, 5)    # down_left
+        rival7 = pieces.Pawn(False, 8, 5)     # left
+        rival8 = pieces.Pawn(False, 6, 6)     # up_left
+
+        self.assertFalse(king.valid_move(rival1))
+        self.assertFalse(king.valid_move(rival2))
+        self.assertFalse(king.valid_move(rival3))
+        self.assertFalse(king.valid_move(rival4))
+        self.assertFalse(king.valid_move(rival5))
+        self.assertFalse(king.valid_move(rival6))
+        self.assertFalse(king.valid_move(rival7))
+        self.assertFalse(king.valid_move(rival8))
 
     def test_whitekking_valid_move_jump(self):
         king = pieces.King(True, 8, 8)
@@ -666,6 +813,26 @@ class TestPieces(unittest.TestCase):
         self.assertTrue(king.valid_move(empty_square7))
         self.assertTrue(king.valid_move(empty_square8))
 
+    def test_whiteking_invalid_move_jump(self):
+        king = pieces.King(True, 8, 8)
+
+        empty_square1 = pieces.EmptySquare(5, 8)     # up
+        empty_square2 = pieces.EmptySquare(6, 10)    # up_right
+        empty_square3 = pieces.EmptySquare(8, 10)    # right
+        empty_square4 = pieces.EmptySquare(11, 11)   # down_right
+        empty_square5 = pieces.EmptySquare(12, 8)    # down
+        empty_square6 = pieces.EmptySquare(11, 5)    # down_left
+        empty_square7 = pieces.EmptySquare(8, 5)     # left
+        empty_square8 = pieces.EmptySquare(6, 6)     # up_left
+
+        self.assertFalse(king.valid_move(empty_square1))
+        self.assertFalse(king.valid_move(empty_square2))
+        self.assertFalse(king.valid_move(empty_square3))
+        self.assertFalse(king.valid_move(empty_square4))
+        self.assertFalse(king.valid_move(empty_square5))
+        self.assertFalse(king.valid_move(empty_square6))
+        self.assertFalse(king.valid_move(empty_square7))
+        self.assertFalse(king.valid_move(empty_square8))
 
 # if __name__ == 'main':
 #     unittest.main()
