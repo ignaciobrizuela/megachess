@@ -1,40 +1,74 @@
-# import sys
-# import os
-# sys.path.append(os.path.abspath('../scripts'))
-
+# Made by brz
 from scripts import board
 import unittest
 
-class boardTest(unittest.TestCase):
+class TestBoard(unittest.TestCase):
     board_game = None
 
     def setUp(self):
-        board_str = ('rrhhbbqqkkbbhhrrrrhhbbqqkkbbhhrrpppppppppppppppppppppppppppppppp' 
-                    '                                                                ' 
-                    '                                                                ' 
-                    'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRHHBBQQKKBBHHRRRRHHBBQQKKBBHHRR')
-        self.board_game = board.Board(board_str)
+        self.board_pretty = ('♜♜♞♞♝♝♛♛♚♚♝♝♞♞♜♜♜♜♞♞♝♝♛♛♚♚♝♝♞♞♜♜♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟'
+        '                                                                '
+        '                                                                '
+        '♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♖♖♘♘♗♗♕♕♔♔♗♗♘♘♖♖♖♖♘♘♗♗♕♕♔♔♗♗♘♘♖♖')
+        self.board_game = board.Board(self.board_pretty)
 
-    def test_shape_board(self):
-        self.assertEqual((16, 16), self.board_game.matrix.shape, "Must be a 16x16 board")
+    def test_transform_pretty_pieces(self):
+        board_str = (  'rrhhbbqqkkbbhhrr'
+            'rrhhbbqqkkbbhhrr'
+            'pppppppppppppppp'
+            'pppppppppppppppp' 
+            '                '
+            '                '
+            '                '
+            '                ' 
+            '                '
+            '                '
+            '                '
+            '                ' 
+            'PPPPPPPPPPPPPPPP'
+            'PPPPPPPPPPPPPPPP'
+            'RRHHBBQQKKBBHHRR'
+            'RRHHBBQQKKBBHHRR')
+
+        board_pieces = board.transform_pretty_pieces(board_str)
+
+        self.assertEqual(8, board_pieces.count('♜'))
+        self.assertEqual(8, board_pieces.count('♞'))
+        self.assertEqual(8, board_pieces.count('♝'))
+        self.assertEqual(4, board_pieces.count('♛'))
+        self.assertEqual(4, board_pieces.count('♚'))
+        self.assertEqual(32, board_pieces.count('♟'))
+        self.assertEqual(8, board_pieces.count('♖'))
+        self.assertEqual(8, board_pieces.count('♘'))
+        self.assertEqual(8, board_pieces.count('♗'))
+        self.assertEqual(4, board_pieces.count('♕'))
+        self.assertEqual(4, board_pieces.count('♔'))
+        self.assertEqual(32, board_pieces.count('♙'))
+    
+    def test_convert_board_matrix(self):
+        matrix_pieces = board.convert_board_matrix(self.board_pretty)
+        self.assertEqual((16, 16), matrix_pieces.shape, "Must be a 16x16 board")
 
     def test_pieces_quantity(self):
-        # Black pieces
-        self.assertEqual(32, len(self.board_game.black_pawns), 'Must be 32 pawns at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.black_horses), 'Must be 8 horses at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.black_bishops), 'Must be 8 bishops at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.black_rooks), 'Must be 8 rooks at the beginning of the game')
-        self.assertEqual(4, len(self.board_game.black_queens), 'Must be 4 queens at the beginning of the game')
-        self.assertEqual(4, len(self.board_game.black_kings), 'Must be 4 kings at the beginning of the game')
+        white_pieces = []
+        black_pieces = []
+        empty_pieces = []
+
+        for row_pieces in self.board_game.matrix_pieces:
+            for piece in row_pieces:
+                if piece.color == True:
+                    white_pieces.append(piece)
+                elif piece.color == False:
+                    black_pieces.append(piece)
+                else:
+                    empty_pieces.append(piece)
+
         # White pieces
-        self.assertEqual(32, len(self.board_game.white_pawns), 'Must be 32 pawns at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.white_horses), 'Must be 8 horses at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.white_bishops), 'Must be 8 bishops at the beginning of the game')
-        self.assertEqual(8, len(self.board_game.white_rooks), 'Must be 8 rooks at the beginning of the game')
-        self.assertEqual(4, len(self.board_game.white_queens), 'Must be 4 queens at the beginning of the game')
-        self.assertEqual(4, len(self.board_game.white_kings), 'Must be 4 kings at the beginning of the game')
+        self.assertEqual(64, len(white_pieces))
+        self.assertEqual(64, len(black_pieces))
+        self.assertEqual(128, len(empty_pieces))
 
 
-if __name__ == "__main__":
-     unittest.main()
+# if __name__ == "__main__":
+#      unittest.main()
             
