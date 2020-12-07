@@ -1,11 +1,10 @@
 # Made by brz
-
 import asyncio
 import json
 from random import randint
 import sys
 import websockets
-from scripts import player
+from scripts import player2
 from decouple import config
 
 auth_token = config('AUTH_TOKEN')
@@ -39,25 +38,27 @@ async def start(auth_token):
                     pass
                 if data['event'] == 'ask_challenge':
                     # This function accepts any challenge
-                    # if data['data']['username'] == 'brz':
-                    #     await send(
-                    #         websocket,
-                    #         'accept_challenge',
-                    #         {
-                    #             'board_id': data['data']['board_id'],
-                    #         },
-                    #     )
-                    await send(
+                    if data['data']['username'] == 'brzBot' or 'brz':
+                        await send(
                             websocket,
                             'accept_challenge',
                             {
                                 'board_id': data['data']['board_id'],
                             },
                         )
+                    # await send(
+                    #         websocket,
+                    #         'accept_challenge',
+                    #         {
+                    #             'board_id': data['data']['board_id'],
+                    #         },
+                    #     )
                 if data['event'] == 'your_turn':
                     board = data['data']['board']
-                    color = data['data']['actual_turn']
-                    from_row, from_col, to_row, to_col = player.play(board, color)
+                    color_str = data['data']['actual_turn']
+                    color = True if color_str == 'white' else False
+
+                    from_row, from_col, to_row, to_col = player2.play(board, color)
                     await send(
                         websocket,
                         'move',
