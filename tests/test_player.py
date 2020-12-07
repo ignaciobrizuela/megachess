@@ -10,9 +10,9 @@ from scripts import score
 class TestPlayer(unittest.TestCase):
 
     def setUp(self):
-        board1 = (  'RP              '
-                    'P             b '
-                    '             PK '
+        self.board1 = (  '♖♙              '
+                    '♙             ♝ '
+                    '             ♙♔ '
                     '                ' 
                     '                '
                     '                '
@@ -27,7 +27,7 @@ class TestPlayer(unittest.TestCase):
                     '                '
                     '                ')
 
-        self.actual_board = board.Board(board1)
+        self.actual_board = board.Board(self.board1)
 
         moves = ({'from_row': 1, 'from_col': 14, 'to_row': 0, 'to_col': 15, 'score': -8},
                 {'from_row': 1, 'from_col': 14, 'to_row': 2, 'to_col': 15, 'score': -8},
@@ -176,6 +176,9 @@ class TestPlayer(unittest.TestCase):
 
         self.assertEqual(max_move_expected, max_move)
         self.assertEqual(min_move_expected, min_move)
+
+    def test_play(self):
+        self.assertEqual((2,13, 1,14), player2.play(self.board1, True))
 
 # if __name__ == 'main':
 #     unittest.main()
