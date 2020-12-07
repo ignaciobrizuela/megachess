@@ -11,7 +11,12 @@ class Score():
         
         if isinstance(element_in_square, pieces.EmptySquare):
             if isinstance(piece, pieces.Pawn):
-                plus = round(1 / abs(7.5 - element_in_square.row), 2)
+                if (piece.row == 3 or 12) and 5 <= piece.col <= 9:
+                    plus = plus = round(1 / abs(7.5 - element_in_square.row), 2) + 2
+                elif (piece.row == 2 or 13) and 5 <= piece.col <= 7:
+                    plus = round(1 / abs(7.5 - element_in_square.row), 2) + 1
+                else:
+                    plus = round(1 / abs(7.5 - element_in_square.row), 2)
                 score = (60 + plus) * factor 
             else:
                 score = piece.point_move  * factor
