@@ -1,6 +1,7 @@
 # Megachess 
 _This is a challenge for EDA Talen Show, **EventBrite**._
 The task is to build an AI which can play **Megachess**.
+This is the Elizabeth Harmon (1.0) strategy, the first that I'd created.
 
 ## About me
 I'm Ignacio Brizuela Electronic Engineer and also a programmer. I've been programming for a couple of years as a self-oriented person, now I'm ready to take a challenge that lead me to another level.
