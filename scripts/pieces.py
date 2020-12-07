@@ -144,8 +144,8 @@ class King(Piece):
     
         if n_squares_row <= 1 and n_squares_col <= 1:
             return True
-
-        return False
+        else:
+            return False
 
 class EmptySquare():
     # Constrains
