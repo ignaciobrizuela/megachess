@@ -10,7 +10,10 @@ class Score():
         score = 0
         
         if isinstance(element_in_square, pieces.EmptySquare):
-            score = jump(piece, element_in_square) * factor
+            if isinstance(piece, pieces.Queen):
+                score = (jump(piece, element_in_square) + attack_crown_enemy_row(element_in_square, color)) * factor
+            else:
+                score = jump(piece, element_in_square) * factor
 
         else:
             score = capture_piece(piece, element_in_square, color) * factor
@@ -26,13 +29,17 @@ class Score():
 
 def protect_center(piece, element_in_square):
     if (6 <= element_in_square.row <= 9) and (5 <= element_in_square.col <= 10):
+        # center vs center
         if (6 <= piece.row <= 9) and (5 <= piece.col <= 10):
             return 5
+        # out vs center
         else:
             return 10
     else:
+        # center vs out
         if (6 <= piece.row <= 9) and (5 <= piece.col <= 10):
             return 1
+        # out vs out
         else:
             return 3
 
@@ -87,21 +94,21 @@ def jump_to_square(piece, element_in_square):
 def capture_piece(piece, element_in_square, color):
     if (piece.color == False) and (element_in_square.color == True):
         if element_in_square.row < 11:
-            points = (element_in_square.point_been_captured + protect_center(piece, element_in_square)) 
+            points = (element_in_square.point_been_captured + piece.point_move + protect_center(piece, element_in_square)) 
         else:
             if isinstance(element_in_square, pieces.King):
-                points = (element_in_square.point_been_captured + protect_center(piece, element_in_square)) / 1.5
+                points = (element_in_square.point_been_captured + piece.point_move + protect_center(piece, element_in_square)) / 1.5
             else:
-                points = (element_in_square.point_been_captured / 10 + protect_center(piece, element_in_square)) / 10  
+                points = (element_in_square.point_been_captured + piece.point_move + protect_center(piece, element_in_square)) / 10  
 
     elif (piece.color == True) and (element_in_square.color == False):
         if element_in_square.row > 4:
-            points = (element_in_square.point_been_captured + protect_center(piece, element_in_square))  
+            points = (element_in_square.point_been_captured + piece.point_move + protect_center(piece, element_in_square))  
         else:
             if isinstance(element_in_square, pieces.King):
-                points = (element_in_square.point_been_captured + protect_center(piece, element_in_square)) / 1.5
+                points = (element_in_square.point_been_captured + piece.point_move + protect_center(piece, element_in_square)) / 1.5
             else:
-                points = (element_in_square.point_been_captured / 10 + protect_center(piece, element_in_square)) / 10
+                points = (element_in_square.point_been_captured + piece.point_move  + protect_center(piece, element_in_square)) / 10
 
     return points
 
