@@ -8,7 +8,7 @@ from scripts import score
 from copy import deepcopy
 import operator
 
-def scan(actual_score, scan_function, piece, color):
+def scan(new_score, scan_function, piece, color):
     stop = False
 
     while stop == False:
@@ -20,7 +20,7 @@ def scan(actual_score, scan_function, piece, color):
         # If the destiny is an empty square, keep looking
         if isinstance(result, pieces.EmptySquare):
             if piece.valid_move(result):
-                actual_score.set_score(piece, result, color)
+                new_score.set_score(piece, result, color)
 
         # If there is a piece in the square ask which one it is.
         else:
@@ -28,11 +28,11 @@ def scan(actual_score, scan_function, piece, color):
             if isinstance(piece, pieces.Horse):
                 if result.color != piece.color:
                     if piece.valid_move(result):
-                        actual_score.set_score(piece, result, color)
+                        new_score.set_score(piece, result, color)
             # If there is a rival piece set_score and stop
             elif result.color != piece.color:
                 if piece.valid_move(result):
-                    actual_score.set_score(piece, result, color)
+                    new_score.set_score(piece, result, color)
                     stop = True
                 # If it is a team piece do nothing and stop
                 else:
@@ -44,19 +44,28 @@ def scan(actual_score, scan_function, piece, color):
 
 def evaluate_moves(actual_board, actual_score, color):
     move_score = ([])
-    next_score = score.Score()
+    max_move_now, _ = minimax(actual_score)
 
     for s in actual_score.play_moves:
+        # print('move',s)
+        next_board = deepcopy(actual_board)
         if s['score'] > 0:
-            next_board = deepcopy(actual_board)
-            next_board.matrix_pieces[s['to_row']][s['to_col']] = next_board.matrix_pieces[s['from_row']][s['from_col']]
+            piece_from = next_board.matrix_pieces[s['from_row']][s['from_col']]
+            piece_from.row = s['to_row']
+            piece_from.col = s['to_col']
+            next_board.matrix_pieces[s['to_row']][s['to_col']] = piece_from
             next_board.matrix_pieces[s['from_row']][s['from_col']] = pieces.EmptySquare(s['from_row'],s['from_col'])
-            next_score = scan_posible_moves(next_board, color)
+
+            next_score = scan_posible_moves(next_board, color)   #####################
+            # for m in next_score.play_moves:
+            #     print(m)
             
-            max_move_now, _ = minimax(actual_score)
             max_move, min_move = minimax(next_score)
             points = s['score'] * 2 + max_move['score'] + min_move['score']
             move_score.append([s, round(points, 2)])
+            # print('aca', s, max_move , min_move)
+            # for m in move_score:
+            #     print(m)
 
     return move_score
 
@@ -64,22 +73,22 @@ def evaluate_moves(actual_board, actual_score, color):
 def best_move(moves):
     return max(moves, key=operator.itemgetter(1))
 
-def scan_posible_moves(actual_board, color):
+def scan_posible_moves(next_board, color):
     new_score = score.Score()
 
     for i in range(16):
         for j in range(16):
-            piece = actual_board.matrix_pieces[i][j]
+            piece = next_board.matrix_pieces[i][j]
             if not isinstance(piece, pieces.EmptySquare):
-                up          = scans.scan_up(actual_board, piece)
-                up_right    = scans.scan_up_right(actual_board, piece)
-                right       = scans.scan_right(actual_board, piece)
-                down_right  = scans.scan_down_right(actual_board, piece)
-                down        = scans.scan_down(actual_board, piece)
-                down_left   = scans.scan_down_left(actual_board, piece)
-                left        = scans.scan_left(actual_board, piece)
-                up_left     = scans.scan_up_left(actual_board, piece)
-                L           = scans.scan_L(actual_board, piece)
+                up          = scans.scan_up(next_board, piece)
+                up_right    = scans.scan_up_right(next_board, piece)
+                right       = scans.scan_right(next_board, piece)
+                down_right  = scans.scan_down_right(next_board, piece)
+                down        = scans.scan_down(next_board, piece)
+                down_left   = scans.scan_down_left(next_board, piece)
+                left        = scans.scan_left(next_board, piece)
+                up_left     = scans.scan_up_left(next_board, piece)
+                L           = scans.scan_L(next_board, piece)
 
                 scan(new_score, up, piece, color)
                 scan(new_score, up_right, piece, color)
@@ -116,7 +125,6 @@ def play(board_str, color):
     writer.write(str(actual_board.matrix))
     writer.write('\n')
 
-    # show_board(board_pretty)
     print(actual_board.matrix)
 
     scores = scan_posible_moves(actual_board, color)
@@ -124,6 +132,8 @@ def play(board_str, color):
     #     print(s)
 
     moves = evaluate_moves(actual_board, scores, color)
+    # for m in moves:
+    #     print(m)
 
     b_move = best_move(moves)
     move = b_move[0]
