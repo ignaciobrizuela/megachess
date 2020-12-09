@@ -25,7 +25,7 @@ class Pawn(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.point_move = 10
-        self.point_been_captured = 100
+        self.point_been_captured = 10
 
     def valid_move(self, element_in_square):
         n_squares_row = element_in_square.row - self.row
@@ -72,7 +72,7 @@ class Horse(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.point_move = 7
-        self.point_been_captured = 300
+        self.point_been_captured = 30
 
     def valid_move(self, element_in_square):
         n_squares_row = abs(element_in_square.row - self.row)
@@ -87,7 +87,7 @@ class Bishop(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.point_move = 8
-        self.point_been_captured = 400
+        self.point_been_captured = 40
 
     def valid_move(self, element_in_square):
         n_squares_row = abs(element_in_square.row - self.row)
@@ -102,7 +102,7 @@ class Rook(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.point_move = 9
-        self.point_been_captured = 600
+        self.point_been_captured = 60
 
     def valid_move(self, element_in_square):
         n_squares_row = abs(element_in_square.row - self.row)
@@ -117,7 +117,7 @@ class Queen(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.point_move = 6
-        self.point_been_captured = 800
+        self.point_been_captured = 80
 
     def valid_move(self, element_in_square):
         n_row = abs(element_in_square.row - self.row)
@@ -136,7 +136,7 @@ class King(Piece):
     def __init__(self, color, row, col):
         super().__init__(color, row, col)
         self.point_move = 5
-        self.point_been_captured = 990
+        self.point_been_captured = 99
 
     def valid_move(self, element_in_square):
         n_squares_row = abs(element_in_square.row - self.row)
@@ -155,6 +155,7 @@ class EmptySquare():
         self.row  = row
         self.col  = col
         self.color = None
+        self.point_been_captured = 0
 
 def valid_color(color):
     if color == True or color == False:

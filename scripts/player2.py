@@ -61,7 +61,7 @@ def evaluate_moves(actual_board, actual_score, color):
             #     print(m)
             
             max_move, min_move = minimax(next_score)
-            points = s['score'] * 2 + max_move['score'] + min_move['score']
+            points = s['score'] * 2 + max_move['score'] + min_move['score'] * 2
             move_score.append([s, round(points, 2)])
             # print('aca', s, max_move , min_move)
             # for m in move_score:
