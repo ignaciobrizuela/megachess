@@ -148,13 +148,11 @@ class King(Piece):
             return False
 
 class EmptySquare():
-    # Constrains
-    # It can be in any place in the board
-
     def __init__(self, row, col):
         self.row  = row
         self.col  = col
         self.color = None
+
 
 def valid_color(color):
     if color == True or color == False:
@@ -175,6 +173,3 @@ def valid_col(col):
             return True
         else:
             return False
-
-
-bishop = Bishop(False, 7, 7)
