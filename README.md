@@ -4,9 +4,9 @@
 # Megachess 
 _This is a challenge for EDA Talen Show, **EventBrite**._
 The task is to build an AI which can play **Megachess**.
-This is the Magnus Carlsen (3.0) strategy that I'd created.
+This is the Garli Kasparov _reload_ (2.1). This bot is the strongest of all my bots so far.
 
-![carlsen](https://user-images.githubusercontent.com/40641262/101367293-c3fe6600-3884-11eb-9aa5-f09727ee39c5.jpg)
+![kasparov](https://user-images.githubusercontent.com/40641262/101368802-56533980-3886-11eb-85b7-32c5a50994d4.jpg)
 
 ## About me
 I'm Ignacio Brizuela Electronic Engineer and also a programmer. I've been programming for a couple of years as a self-oriented person, now I'm ready to take a challenge that lead me to another level.
@@ -16,6 +16,7 @@ This challenge requires websockets and I chossed Python 3 to solve it.
 
 * Websockets.
 * Python 3.
+* The Python packages are in _"requirement.txt"_.
 
 ## Rules
 - The rules are the same as a in a regular chess, except that instead of crown a pawn in the opposite side of the board, pawns crown in the middle squares.
@@ -76,17 +77,34 @@ As it's shown, the board it's a string and also it is indicated what color of pi
 ### Board
 This class transforms the board string into a matrix using numpy. This makes easier to locate each piece from the board.
 
-#### Board string
+#### Board string pretty pieces
+First, the program transform the board letters into a piece chess characters. This will be to visualize the match in a better way.
 ```
-"rrhhbbqqkkbbhhrrrrhhbbqqkkbbhhrrpppppppppppppppppppppppppppppppp                                                                                                                        P       PPPPPPPP PPPPPPPPPPPPPPPPPPPPPPPRRHHBBQQKKBBHHRRRRHHBBQQKKBBHHRR"
+('♜♜♞♞♝♝♛♛♚♚♝♝♞♞♜♜'
+'♜♜♞♞♝♝♛♛♚♚♝♝♞♞♜♜'
+'♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟'
+'♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟'
+'                '
+'                '
+'                '
+'                '
+'                '
+'                '
+'                '
+'                '
+'♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙'
+'♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙'
+'♖♖♘♘♗♗♕♕♔♔♗♗♘♘♖♖'
+'♖♖♘♘♗♗♕♕♔♔♗♗♘♘♖♖')
 ```
 
 #### Board matrix
+Then, it creates a matrix to visualize the board during the match.
 ```
-[['r' 'r' 'h' 'h' 'b' 'b' 'q' 'q' 'k' 'k' 'b' 'b' 'h' 'h' 'r' 'r']
- ['r' 'r' 'h' 'h' 'b' 'b' 'q' 'q' 'k' 'k' 'b' 'b' 'h' 'h' 'r' 'r']
- ['p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p']
- ['p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p']
+[['♜' '♜' '♞' '♞' '♝' '♝' '♛' '♛' '♚' '♚' '♝' '♝' '♞' '♞' '♜' '♜']
+ ['♜' '♜' '♞' '♞' '♝' '♝' '♛' '♛' '♚' '♚' '♝' '♝' '♞' '♞' '♜' '♜']
+ ['♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟']
+ ['♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
@@ -95,15 +113,15 @@ This class transforms the board string into a matrix using numpy. This makes eas
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
- ['P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P']
- ['P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P']
- ['R' 'R' 'H' 'H' 'B' 'B' 'Q' 'Q' 'K' 'K' 'B' 'B' 'H' 'H' 'R' 'R']
- ['R' 'R' 'H' 'H' 'B' 'B' 'Q' 'Q' 'K' 'K' 'B' 'B' 'H' 'H' 'R' 'R']]
+ ['♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙']
+ ['♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙']
+ ['♖' '♖' '♘' '♘' '♗' '♗' '♕' '♕' '♔' '♔' '♗' '♗' '♘' '♘' '♖' '♖']
+ ['♖' '♖' '♘' '♘' '♗' '♗' '♕' '♕' '♔' '♔' '♗' '♗' '♘' '♘' '♖' '♖']]
 ```
 
 #### Board matrix_pieces
-Also this class has a method _get_pieces_from_board_ to transform a string array into a pieces array.
-So, if we create a board object we will have access to the matrix board and all pieces availables to play.
+Finally, the class has a method _get_pieces_from_board_ to transform a string array into a pieces array.
+This allows to access to the matrix board and all pieces availables to play.
 E.g:
 ```
 [rook rook horse horse ...]

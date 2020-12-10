@@ -1,5 +1,4 @@
 # Made by brz
-import asyncio
 from scripts import pieces
 from scripts import score
 

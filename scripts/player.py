@@ -1,7 +1,5 @@
 # Made by brz
-import asyncio
 from scripts import board
-import numpy as np 
 from scripts import pieces
 from scripts import scans
 from scripts import score
@@ -101,9 +99,6 @@ def minimax(actual_score):
 
     return  actual_score.play_moves[play_max_score], actual_score.play_moves[play_min_score]
                         
-# def show_board(board_pretty):
-#     for row in range(0, 256, 16):
-#         print(board_pretty[row:row+16])
 
 writer = open('game.txt', 'w')
 
@@ -116,12 +111,9 @@ def play(board_str, color):
     writer.write(str(actual_board.matrix))
     writer.write('\n')
 
-    # show_board(board_pretty)
     print(actual_board.matrix)
 
     scores = scan_posible_moves(actual_board, color)
-    # for s in scores.play_moves:
-    #     print(s)
 
     moves = evaluate_moves(actual_board, scores, color)
 

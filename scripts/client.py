@@ -4,7 +4,7 @@ import json
 from random import randint
 import sys
 import websockets
-from scripts import player2
+from scripts import player
 from decouple import config
 
 auth_token = config('AUTH_TOKEN')
@@ -58,7 +58,7 @@ async def start(auth_token):
                     color_str = data['data']['actual_turn']
                     color = True if color_str == 'white' else False
 
-                    from_row, from_col, to_row, to_col = player2.play(board, color)
+                    from_row, from_col, to_row, to_col = player.play(board, color)
                     await send(
                         websocket,
                         'move',
