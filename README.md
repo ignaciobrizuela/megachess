@@ -4,6 +4,7 @@
 # Megachess 
 _This is a challenge for EDA Talen Show, **EventBrite**._
 The task is to build an AI which can play **Megachess**.
+
 This is the Garli Kasparov _reload_ (2.1). This bot is the strongest of all my bots so far.
 
 ![kasparov](https://user-images.githubusercontent.com/40641262/101368802-56533980-3886-11eb-85b7-32c5a50994d4.jpg)
@@ -78,33 +79,18 @@ As it's shown, the board it's a string and also it is indicated what color of pi
 This class transforms the board string into a matrix using numpy. This makes easier to locate each piece from the board.
 
 #### Board string pretty pieces
-First, the program transform the board letters into a piece chess characters. This will be to visualize the match in a better way.
+First, the program transform the string into a matrix. This will help to visualize the match in a better way.
 ```
-('♜♜♞♞♝♝♛♛♚♚♝♝♞♞♜♜'
-'♜♜♞♞♝♝♛♛♚♚♝♝♞♞♜♜'
-'♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟'
-'♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟♟'
-'                '
-'                '
-'                '
-'                '
-'                '
-'                '
-'                '
-'                '
-'♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙'
-'♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙♙'
-'♖♖♘♘♗♗♕♕♔♔♗♗♘♘♖♖'
-'♖♖♘♘♗♗♕♕♔♔♗♗♘♘♖♖')
+"rrhhbbqqkkbbhhrrrrhhbbqqkkbbhhrrpppppppppppppppppppppppppppppppp                                                                                                                        P       PPPPPPPP PPPPPPPPPPPPPPPPPPPPPPPRRHHBBQQKKBBHHRRRRHHBBQQKKBBHHRR"
 ```
 
 #### Board matrix
-Then, it creates a matrix to visualize the board during the match.
+The matrix looks like this.
 ```
-[['♜' '♜' '♞' '♞' '♝' '♝' '♛' '♛' '♚' '♚' '♝' '♝' '♞' '♞' '♜' '♜']
- ['♜' '♜' '♞' '♞' '♝' '♝' '♛' '♛' '♚' '♚' '♝' '♝' '♞' '♞' '♜' '♜']
- ['♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟']
- ['♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟' '♟']
+[['r' 'r' 'h' 'h' 'b' 'b' 'q' 'q' 'k' 'k' 'b' 'b' 'h' 'h' 'r' 'r']
+ ['r' 'r' 'h' 'h' 'b' 'b' 'q' 'q' 'k' 'k' 'b' 'b' 'h' 'h' 'r' 'r']
+ ['p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p']
+ ['p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p' 'p']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
@@ -113,10 +99,10 @@ Then, it creates a matrix to visualize the board during the match.
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
  [' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ' ']
- ['♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙']
- ['♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙' '♙']
- ['♖' '♖' '♘' '♘' '♗' '♗' '♕' '♕' '♔' '♔' '♗' '♗' '♘' '♘' '♖' '♖']
- ['♖' '♖' '♘' '♘' '♗' '♗' '♕' '♕' '♔' '♔' '♗' '♗' '♘' '♘' '♖' '♖']]
+ ['P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P']
+ ['P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P' 'P']
+ ['R' 'R' 'H' 'H' 'B' 'B' 'Q' 'Q' 'K' 'K' 'B' 'B' 'H' 'H' 'R' 'R']
+ ['R' 'R' 'H' 'H' 'B' 'B' 'Q' 'Q' 'K' 'K' 'B' 'B' 'H' 'H' 'R' 'R']]
 ```
 
 #### Board matrix_pieces
