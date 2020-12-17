@@ -5,7 +5,7 @@
 _This is a challenge for EDA Talen Show, **EventBrite**._
 The task is to build an AI which can play **Megachess**.
 
-This is the Garli Kasparov _reload_ (2.1). This bot is the strongest of all my bots so far. It finished in 5th place.
+This is the Garli Kasparov _reload_ (2.1) bot. This bot is the strongest of all my bots so far. It finished in 3rd place.
 
 ![kasparov](https://user-images.githubusercontent.com/40641262/101368802-56533980-3886-11eb-85b7-32c5a50994d4.jpg)
 
